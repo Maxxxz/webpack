@@ -33,8 +33,7 @@ import {zxx, mao} from '../action/index'
 // 定义初始化状态，初始化状态是常量
 // 初始状态是红灯
 const initState = {
-  color:'red',
-  time:'7' // 持续时间20ms
+  content:'hehe'
 }
 
 
@@ -43,7 +42,7 @@ export default function getStatus(state=initState, action){
   switch(action.type){
     case zxx:
       return {
-        content:'still'
+        content:'stillhere'
       }
 
     case mao:

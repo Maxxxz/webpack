@@ -7,7 +7,7 @@ let day = 0;
 export const ChangeMax = (content) => {
   return {
     type: zxx,
-    num: day++,
+    num: day++,     //num获取不到？？？
     content
   }
 }

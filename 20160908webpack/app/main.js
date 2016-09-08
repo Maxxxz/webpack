@@ -38,9 +38,15 @@ import {ChangeMax, ChangeMao} from './../action/index.js'
 
 let store = manStore();
 
+
+// 每次 state 更新时，打印日志 这段的意思！！
+// 注意 subscribe() 返回一个函数用来注销监听器
 let unsubscribe = store.subscribe(() =>
   console.log(store.getState())
 );
 
+console.log(store.getState(ChangeMax()));
+
 store.dispatch(ChangeMax());
 store.dispatch(ChangeMao());
+
