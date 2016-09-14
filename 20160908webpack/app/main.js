@@ -50,3 +50,7 @@ console.log(store.getState(ChangeMax()));
 store.dispatch(ChangeMax());
 store.dispatch(ChangeMao());
 
+
+const ADD = 1;
+// console.log("const:"+ADD);
+// console.log("const2:"+max+" ,"+mao);

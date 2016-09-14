@@ -3,7 +3,6 @@ export const mao = 'Yiyun_mao';
 
 let day = 0;
 
-
 export const ChangeMax = (content) => {
   return {
     type: zxx,

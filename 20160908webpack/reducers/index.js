@@ -42,6 +42,7 @@ export default function getStatus(state=initState, action){
   switch(action.type){
     case zxx:
       return {
+        num:11,
         content:'stillhere'
       }
 
