@@ -60,8 +60,7 @@ import Box from 'com/box';
 import React from 'react';
 import ReactDOM from 'react-dom';   
 
-debugger;
 ReactDOM.render(
-        <Box height={100} />, 
+        <Box height={100}/>, 
         document.getElementById("forBox")
 );
