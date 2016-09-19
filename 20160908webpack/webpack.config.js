@@ -5,7 +5,10 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 // var pathToReact = path.resolve(node_modules, 'react/dist/react.min.js');
 
 module.exports = {
-    entry: ['webpack/hot/dev-server', path.resolve(__dirname, 'app/main.js')],
+    entry: [
+        'webpack/hot/dev-server', 
+        path.resolve(__dirname, 'app/main.js')
+    ],
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js',
