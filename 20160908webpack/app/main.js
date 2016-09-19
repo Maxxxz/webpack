@@ -60,7 +60,16 @@ import Box from 'com/box';
 import React from 'react';
 import ReactDOM from 'react-dom';   
 
+class Outer extends Box{    //继承Box内的！。
+    constructor(props){
+        super(props)
+    }
+
+    render(){
+        return  <Box height={100}/>
+    }
+}
 ReactDOM.render(
-        <Box height={100}/>, 
+        <Outer/>, 
         document.getElementById("forBox")
 );
