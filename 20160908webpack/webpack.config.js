@@ -28,9 +28,10 @@ module.exports = {
 	     }
 	   ],
 	 },*/
+    //快捷访问别名
     resolve: {
         alias: {
-          acom: path.resolve(__dirname, './com'),
+          com: path.resolve(__dirname, './com'),
           testalias: path.resolve(__dirname, './com/testalias.js'),
         }
     }
