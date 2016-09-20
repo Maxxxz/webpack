@@ -8,6 +8,7 @@
   "author": "max",
   "license": "ISC",
   "devDependencies": {
+    "babel-eslint": "^6.1.2",
     "eslint": "^2.13.1",
     "husky": "^0.11.7"
   }
