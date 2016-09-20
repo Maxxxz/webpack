@@ -13,11 +13,11 @@ module.exports = {
         },
         "sourceType": "module"
     },
-    "plugins": [
-        "react"
-    ],
-    "parser": "esprima",//"babel-eslint",
-    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    // "plugins": [
+    //     "react"
+    // ],
+    "parser": "babel-eslint",    //"",
+    "extends": ["eslint:recommended"],  //, "plugin:react/recommended"
     "rules": {
         "no-console": 0,         //off = 0
         "semi": 2,
