@@ -16,14 +16,14 @@ module.exports = {
     "plugins": [
         "react"
     ],
-    "parser": "babel-eslint",
+    "parser": "esprima",//"babel-eslint",
     "extends": ["eslint:recommended", "plugin:react/recommended"],
     "rules": {
-        "no-console": 0,
+        "no-console": 0,         //off = 0
         "semi": 2,
         // react 配置
         "react/prop-types": 0, // 检查react props的属性是否在propTypes声明
 
-        "eqeqeq": 2
+        "eqeqeq": 2         //error = 2
     }
 };
