@@ -1,1 +1,3 @@
-var t = 1;aaa
+var t = 1;
+
+aaa

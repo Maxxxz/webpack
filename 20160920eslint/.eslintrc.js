@@ -16,8 +16,8 @@ module.exports = {
     // "plugins": [
     //     "react"
     // ],
-     "parser": "babel-eslint",
-    // "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "parser": "babel-eslint",
+    "extends": ["eslint:recommended"],
     "rules": {
         "no-console": 0,
         "semi": 2,
