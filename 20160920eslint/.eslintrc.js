@@ -16,7 +16,7 @@ module.exports = {
     // "plugins": [
     //     "react"
     // ],
-    "parser": "babel-eslint",    //"",
+    "parser": "babel-eslint",    //"esprima",       //记得装对应的插件.
     "extends": ["eslint:recommended"],  //, "plugin:react/recommended"
     "rules": {
         "no-console": 0,         //off = 0
