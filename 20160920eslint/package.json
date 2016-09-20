@@ -3,7 +3,7 @@
   "version": "1.0.19",
   "description": "",
   "scripts": {
-    "precommit": "eslint ./js/"
+    "precommit": "npm test"
   },
   "author": "max",
   "license": "ISC",
