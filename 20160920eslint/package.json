@@ -1,0 +1,13 @@
+{
+  "name": "eslint",
+  "version": "1.0.19",
+  "description": "",
+  "scripts": {
+    "precommit": "eslint ./js/"
+  },
+  "author": "max",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^2.13.1"
+  }
+}
