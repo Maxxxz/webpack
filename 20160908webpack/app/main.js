@@ -28,7 +28,7 @@ function main() {
 import al from 'testalias';
 console.log(al);
 
-import al2 from 'acom/testalias';
+import al2 from 'com/testalias';
 console.log(al2);
 
 
@@ -54,3 +54,22 @@ store.dispatch(ChangeMao());
 const ADD = 1;
 // console.log("const:"+ADD);
 // console.log("const2:"+max+" ,"+mao);
+
+
+import Box from 'com/box';
+import React from 'react';
+import ReactDOM from 'react-dom';   
+
+class Outer extends Box{    //继承Box内的！。
+    constructor(props){
+        super(props)
+    }
+
+    render(){
+        return  <Box height={100}/>
+    }
+}
+ReactDOM.render(
+        <Outer/>, 
+        document.getElementById("forBox")
+);
