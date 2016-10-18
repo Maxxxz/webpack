@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    "transform-class-properties",
+    "transform-es2015-block-scoping",
+    ["transform-es2015-classes", {"loose": true}],
+    "transform-proto-to-assign",
+    "transform-decorators-legacy",
+    "transform-es2015-modules-commonjs"
+  ],
+  "presets": [
+    "react",
+    "es2015",
+    "stage-0"
+  ]
+}

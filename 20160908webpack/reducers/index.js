@@ -28,7 +28,9 @@ export default function todoApp(state = {}, action) {
   }
 }
 */
-import {zxx, mao} from '../action/index'
+import {zxx, mao} from '../action/index';
+
+
 
 // 定义初始化状态，初始化状态是常量
 // 初始状态是红灯
