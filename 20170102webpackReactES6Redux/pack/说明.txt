@@ -1,0 +1,4 @@
+在没有webpack.config.js文件或者没有指定配置文件的时候通过
+$ webpack js/entry.js pack/bundle.js
+打包的文件。
+如果有配置文件，该命令的路径+文件配置会失效，只会读取配置里的
