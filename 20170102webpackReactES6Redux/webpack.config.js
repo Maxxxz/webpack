@@ -13,23 +13,33 @@
 var webpack = require('webpack')
 
 module.exports = {
-  entry: './js/entry.js',    //这个入口是非热部署的
   /*
   entry就是模块的入口
     1. entry的值是字符串，这个字符串对应的模块会在启动的时候加载
     2. entry的值是数组，这个数组内所有模块会在启动的时候加载，数组的最后一个元素作为export
     3. entry的值是对象，可以构建多个bundle
   */
+  entry: './js/entry.js',    //这个入口是非热部署的
+  /*
+    输出的路径+文件
+  */
   output: {
-    path: 'pack',
+    path: 'pack', //文件夹名
     filename: 'bundle.js'
-  },
-  module: {
+  }
+  
+  ,module: {
     //loaders:可以根据模块类型（扩展名、类型名）来自动绑定需要的 loader。
+    //打包引用路径时候的加载器以及快捷路径的配置
     loaders: [
       //下面这段配置相当于$ webpack entry.js bundle.js --module-bind 'css=style!css' 
       //可以让css文件引入require("!style!css!./style.css");直接require("./style.css")使用。减少了代码量
       {test: /\.css$/, loader: 'style!css'}
     ]
   }
+  //插件
+  ,plugins: [
+    //打包后快速添加注释
+    new webpack.BannerPlugin('This file is created by Max')
+  ]
 }

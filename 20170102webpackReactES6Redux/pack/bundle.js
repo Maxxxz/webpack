@@ -1,3 +1,4 @@
+/*! This file is created by Max */
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -84,7 +85,7 @@
 
 
 	// module
-	exports.push([module.id, "body { background: yellow; }", ""]);
+	exports.push([module.id, "body { background: rgba(240, 167, 34, 0.62); }", ""]);
 
 	// exports
 
