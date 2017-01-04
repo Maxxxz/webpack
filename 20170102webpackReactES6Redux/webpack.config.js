@@ -34,7 +34,41 @@ module.exports = {
     loaders: [
       //下面这段配置相当于$ webpack entry.js bundle.js --module-bind 'css=style!css' 
       //可以让css文件引入require("!style!css!./style.css");直接require("./style.css")使用。减少了代码量
+      //要在packge.json里配置包安装目录 或者直接npm install css-loader style-loader
+      //还有不同的加载器
+      /*
+      {
+        "html-loader": "^0.4.3",
+        "less-loader": "^2.2.3",
+        "markdown-loader": "^0.1.7",
+        "url-loader": "^0.5.7",
+        "babel-loader": "^6.2.4",
+        "json-loader": "^0.5.4",
+        "postcss-loader": "^0.8.2",
+        "react-hot-loader": "^1.3.0",
+        "sass-loader": "^3.2.1",
+        "style-loader": "^0.13.1",
+        "transform-loader": "^0.2.3"
+      }
+      */
       {test: /\.css$/, loader: 'style!css'}
+      //css文件加载器另一种写法
+      //{ test: /\.css$/, loaders: ["style", "css"] },
+      //还有一些详细的配置
+      /*{
+        test: /\.js(x)*$/,
+        loader: 'babel-loader',   //babel的loader
+        include: [
+          // 只去解析运行目录下的 src 和 demo 文件夹
+          path.join(process.cwd(), './src'),
+          path.join(process.cwd(), './demo')
+        ],
+        query: {
+            presets: ['react', 'es2015-ie', 'stage-1']
+        }
+      }*/
+      //我们的项目中用了happypack去加速构建
+      //http://www.tuicool.com/articles/EzMVfei
     ]
   }
   //插件
