@@ -127,14 +127,24 @@ module.exports = {
         "transform-loader": "^0.2.3"
       }
       */
-      {test: /\.css$/, loader: 'style!css'}
+      { 
+        test: /\.css$/, 
+        loader: 'style!css'
+      }
       //css文件加载器另一种写法
       //{ test: /\.css$/, loaders: ["style", "css"] },
       //还有一些详细的配置
       /*{
-        test: /\.js(x)*$/,
+        test: /\.js(x)*$/,     //test后面跟着是文件名(可有可无)+后缀 test参数用来指示当前配置项针对哪些资源，该值应是一个条件值(condition)。
+        
         loader: 'babel-loader',   //babel的loader
-        include: [
+        //loader/loaders参数，用来指示用哪个/哪些loader来处理目标资源，这俩货表达的其实是一个意思，只是写法不一样，我个人推荐用loader写成一行，多个loader间使用!分割，这种形式类似于管道的概念，又或者说是函数式编程。形如loader: 'css?!postcss!less'，可以很明显地看出，目标资源先经less-loader处理过后将结果交给postcss-loader作进一步处理，然后最后再交给css-loader。  
+        //上面案例交接处不懂。
+
+        exclude:???, ///exclude 参数用来剔除掉需要忽略的资源，该值应是一个条件值(condition)。
+        
+
+        include: [              //include是目录/路径
           // 只去解析运行目录下的 src 和 demo 文件夹
           path.join(process.cwd(), './src'),
           path.join(process.cwd(), './demo')
@@ -142,6 +152,9 @@ module.exports = {
         query: {
             presets: ['react', 'es2015-ie', 'stage-1']
         }
+
+        //tips
+        //条件值(condition)可以是一个字符串（某个资源的文件系统绝对路径），可以是一个函数（官方文档里是有这么写，但既没有示例也没有说明，我也是醉了），可以是一个正则表达式（用来匹配资源的路径，最常用，强烈推荐！），最后，还可以是一个数组，数组的元素可以为上述三种类型，元素之间为与关系（既必须同时满足数组里的所有条件）。需要注意的是，loader是可以接受参数的，方式类似于URL参数，形如'css?minimize&-autoprefixer'，具体每个loader接受什么参数请参考loader本身的文档（一般也就只能在github里看了）。
       }*/
       //我们的项目中用了happypack去加速构建
       //http://www.tuicool.com/articles/EzMVfei
