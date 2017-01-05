@@ -19,7 +19,11 @@ module.exports = {
     2. entry的值是数组，这个数组内所有模块会在启动的时候加载，数组的最后一个元素作为export
     3. entry的值是对象，可以构建多个bundle
   */
-  entry: './js/entry.js',    //这个入口是非热部署的
+  // entry: './js/entry.js',    //这个入口是非热部署的
+  entry:{
+    'main/index':'./js/entry.js',
+    'sec/index':'./js/entry.js'
+  },
   //***入口的额外介绍  ***
   //entry可以是字符串（单入口），可以是数组（多入口），但为了后续发展，请务必使用object，因为object中的key在webpack里相当于此入口的name，既可以后续用来拼生成文件的路径，也可以用来作为此入口的唯一标识。我推荐的形式是这样的：
   /*
@@ -71,7 +75,12 @@ module.exports = {
   */
   output: {
     path: 'pack', //文件夹名
-    filename: 'bundle.js'
+    filename: '[name].[chunkhash].bundle.js' 
+    //[name]是entry的key值，若entry是字符串，则name为main。有两个key就会创建两入口。如果key是main/index 就会创建main文件夹！
+    //[chunkhash]只有变化后才会更改hash值
+    //[hash]每次都生成新的hash值
+    //疑惑，index文件如何获取这个hash值？？
+
   }
 
   //path 和 filename 针对入口文件 publicPath针对css/img/is/等文件路径（相对于浏览器）chunkFilename是其他模块打包后的文件名
