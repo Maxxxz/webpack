@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/Maxxxz/webpack#readme",
   "dependencies": {
-    "babel-loader": "^6.3.2"
+    
   },
   "devDependencies": {
     "babel-core": "^6.23.1",
