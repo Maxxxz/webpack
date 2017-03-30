@@ -1,5 +1,11 @@
 var path = require('path');
 
+//(function(exports, require, module, __filename, __dirname){\n, 在尾部添加了\n}); 利用node添加的函数获取路径
+
+console.log( "__dirname", __dirname, path.resolve(__dirname, './dist') );	
+
+
+
 const config = {
   entry: {
     pageOne: './src/enter/pageOne/index.js',
@@ -7,7 +13,7 @@ const config = {
     pageThree: './src/enter/pageThree/index.js'
   }
   ,output: {
-  	path: './dist',											//不加./ 会跑到对应磁盘的根目录去新增。。。
+  	path: __dirname + '/dist',								//1.此处是绝对路径，2.用 ./指定到相对路径打包时会报错， 3 path.resolve(__dirname, './dist') 也可拼接链接,且后者必须是相对链接！
     filename: '[name].[chunkhash].bundle.js',				//上面几个entry对应的入口文件
     chunkFilename: 'js/[id].[chunkhash].bundle.js'			//各个模块对应生成的文件
   }
