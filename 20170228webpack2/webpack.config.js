@@ -1,25 +1,30 @@
 const path = require('path');
 const webpack = require('webpack'); 	//访问内置的插件,也可以自己写插件的！
 
+var webpackMerge = require('webpack-merge');				//合并的插件
+var ManifestPlugin = require('webpack-manifest-plugin');	//生成对应hash值map的插件	
+var AssetsPlugin = require('assets-webpack-plugin');		
 //(function(exports, require, module, __filename, __dirname){\n, 在尾部添加了\n}); 利用node添加的函数获取路径
 
 console.log( "__dirname", __dirname, path.resolve(__dirname, './dist') );	
 
-
-
-const config = {
+const baseConfig = {
 	/*
 	* 入口
 	*1.插件CommonsChunkPlugin可创建公用模块，只在一开始的时候引入（所有的公用块都是一开始直接打包还是到每次对应文件require的时候才加载？）
 	*2.一般经验，每个 HTML 文档只使用一个入口起点。
 	*/
 	entry: {						
-		pageOne: './src/enter/pageOne/index.js',
-		pageTwo: './src/enter/pageTwo/index.js',
-		pageThree: './src/enter/pageThree/index.js',
-		common: ['./src/js/common/test1.js','./src/js/common/test2.js'],	//主动定义公用模块！！
-		antd: './src/antd/index.js'
+		pageOne: './src/enter/pageOne/index.js'
+		,pageTwo: './src/enter/pageTwo/index.js'
+		,pageThree: './src/enter/pageThree/index.js'
+		,common: ['./src/js/common/test1.js','./src/js/common/test2.js']	//主动定义公用模块！！
+		,antd: './src/antd/index.js'		//模拟antd公用模块
+		,vendor: 'moment'					//公用插件moment
 	}
+}
+
+const devConfig = {
 	/*
 	* 输出(路径、文件名)
 	* [name]:entry的key
@@ -27,9 +32,9 @@ const config = {
 	* [chunkhash]:文件更新后才会更新的哈希值
 	*
 	*/
-	,output: {
+	output: {
 		path: __dirname + '/dist'					//打包输出的路径：1.此处是绝对路径，2.用 ./指定到相对路径打包时会报错， 3 path.resolve(__dirname, './dist') 也可拼接链接,且后者必须是相对链接！ 4.单个入口文件名见文档http://www.css88.com/doc/webpack2/concepts/output/
-		,publicPath: 'http://cdn.example.com/assets/'	 //1打包后文件对应的引用路径。建议写成变量提取出来方便修改， 2加了路径里加了 [hash]/会报路径文件不允许用chunkhash的错
+		// ,publicPath: 'http://cdn.example.com/assets/'	 //1打包后文件对应的引用路径。建议写成变量提取出来方便修改， 2加了路径里加了 [hash]/会报路径文件不允许用chunkhash的错
 		//下面文件都在上面path路径里生成
 		,filename: '[name].[chunkhash].bundle.js'	//打包后的文件名上面几个对应的entry入口文件
 		,chunkFilename: 'js/[id].[chunkhash].bundle.js'	//各个模块对应生成的文件
@@ -57,10 +62,10 @@ const config = {
 						presets: ['es2015']
 					}
 		        },
-				// include: [
-				// 	path.join(process.cwd(), './src/js/common')
-				// ],
-				exclude: /(node_modules|bower_components)/,
+				include: [
+					path.join(process.cwd(), './src/js')
+				],
+				exclude: /(node_modules|bower_components|common)/,
 				
 			},
 			/*
@@ -85,17 +90,22 @@ const config = {
 		*/
 		new webpack.optimize.CommonsChunkPlugin({
 			// name: "test", // or
-			names: ["common","antd"],		
+			names: ["common","antd","vendor","otherVender"]	
 			// 忽略该值就会选择入口的全部chunks
 			// 这个一定是对应entry入口的名字！！ 并且需要比入口文件先提前引入
 			// 这是 common chunk 的名称。已经存在的 chunk 可以通过传入一个已存在的 chunk 名称而被选择。
 			// 如果一个字符串数组被传入，这相当于插件针对每个 chunk 名被多次调用
 			// 如果该选项被忽略，同时 `options.async` 或者 `options.children` 被设置，所有的 chunk 都会被使用，否则 `options.filename` 会用于作为 chunk 名。
 
-			filename: 'common/[name].[chunkhash].js',	
+			,filename: 'common/[name].[chunkhash].js'	
 			// common chunk 的文件名模板。可以包含与 `output.filename` 相同的占位符。
 			// 如果被忽略，原本的文件名不会被修改(通常是 `output.filename` 或者 `output.chunkFilename`)
 
+			/*,minChunks: function (module) {		//搭配name最后多一个一起使用，可以是子文件超过*此调用就放到公用里
+               // 该配置假定你引入的 vendor 存在于 node_modules 目录中
+               console.log("module",module.context);
+               return module.context && module.context.indexOf('node_modules') !== -1;
+            } */ 
 			// minChunks: number|Infinity|function(module, count) -> boolean,   ？？？
 			// 在传入  公共chunk(commons chunk) 之前所需要包含的最少数量的 chunks 。
 			// 数量必须大于等于2，或者少于等于 chunks的数量
@@ -107,20 +117,45 @@ const config = {
 			// 通过 chunk name 去选择 chunks 的来源。chunk 必须是  公共chunk 的子模块。
 			// 如果被忽略，所有的，所有的 入口chunk (entry chunk) 都会被选择。
 
-			//children: false, // boolean,  ？？？
+			,children: false // boolean,  搭配names给多一个使用，true的话入口文件引入的文件是全部打包到公用的
 			// 如果设置为 `true`，所有  公共chunk 的子模块都会被选择
 
-			// async: true, //boolean|string,  
+			// ,async: true, //boolean|string,  
 			// 如果设置为 `true`，一个异步的  公共chunk 会作为 `options.name` 的子模块，和 `options.chunks` 的兄弟模块被创建。
 			// 它会与 `options.chunks` 并行被加载。可以通过提供想要的字符串，而不是 `true` 来对输出的文件进行更换名称。
 
 			// minSize: number
 			// 在 公共chunk 被创建立之前，所有 公共模块 (common module) 的最少大小。
 		})
+		,new webpack.optimize.UglifyJsPlugin({  //详情见 http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+		  compress: {         //压缩配置对应的配置这里 https://github.com/mishoo/UglifyJS2#usage
+		    screw_ie8: false,
+		    warnings: false,
+		    drop_debugger: true,
+		    drop_console: true
+		  },
+		  output: {comments: false},
+		  mangle: false,   //去掉压缩混淆，不然会出问题。
+		  sourceMap: false //去掉sourceMap。
+		})
+		/*
+		* 生成入口文件的hashmap
+		* 用第二个吧。
+		*/
+		,new ManifestPlugin({	//https://www.npmjs.com/package/webpack-manifest-plugin
+		  fileName: 'my-manifest.js',
+		  basePath: './'
+		})
+		,new AssetsPlugin({	//https://www.npmjs.com/package/assets-webpack-plugin
+			filename:'webpack-assets.js',
+			processOutput: function (assets) {
+			    return 'window.staticMap = ' + JSON.stringify(assets)
+			}
+		})
 	]
 	  
 };
 	
-
+const config = webpackMerge(baseConfig,devConfig)
 
 module.exports = config;
