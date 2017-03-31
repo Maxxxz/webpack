@@ -85,7 +85,8 @@ const config = {
 		*/
 		new webpack.optimize.CommonsChunkPlugin({
 			// name: "test", // or
-			names: ["common","antd"],
+			names: ["common","antd"],		
+			// 忽略该值就会选择入口的全部chunks
 			// 这个一定是对应entry入口的名字！！ 并且需要比入口文件先提前引入
 			// 这是 common chunk 的名称。已经存在的 chunk 可以通过传入一个已存在的 chunk 名称而被选择。
 			// 如果一个字符串数组被传入，这相当于插件针对每个 chunk 名被多次调用
@@ -95,21 +96,21 @@ const config = {
 			// common chunk 的文件名模板。可以包含与 `output.filename` 相同的占位符。
 			// 如果被忽略，原本的文件名不会被修改(通常是 `output.filename` 或者 `output.chunkFilename`)
 
-			// minChunks: number|Infinity|function(module, count) -> boolean,
+			// minChunks: number|Infinity|function(module, count) -> boolean,   ？？？
 			// 在传入  公共chunk(commons chunk) 之前所需要包含的最少数量的 chunks 。
 			// 数量必须大于等于2，或者少于等于 chunks的数量
 			// 传入 `Infinity` 会马上生成 公共chunk，但里面没有模块。
 			// 你可以传入一个 `function` ，以添加定制的逻辑（默认是 chunk 的数量）
+ 			// 随着 入口chunk 越来越多，用Infinity这个配置保证没其它的模块会打包进 公共chunk  ？？？不懂
 
-			chunks: "['./src/js/common/test1.js']",
+			//chunks: "['./src/js/common/test1.js']",     ？？？
 			// 通过 chunk name 去选择 chunks 的来源。chunk 必须是  公共chunk 的子模块。
 			// 如果被忽略，所有的，所有的 入口chunk (entry chunk) 都会被选择。
 
-
-			// children: true, // boolean,
+			//children: false, // boolean,  ？？？
 			// 如果设置为 `true`，所有  公共chunk 的子模块都会被选择
 
-			// async: false, //boolean|string,
+			// async: true, //boolean|string,  
 			// 如果设置为 `true`，一个异步的  公共chunk 会作为 `options.name` 的子模块，和 `options.chunks` 的兄弟模块被创建。
 			// 它会与 `options.chunks` 并行被加载。可以通过提供想要的字符串，而不是 `true` 来对输出的文件进行更换名称。
 
