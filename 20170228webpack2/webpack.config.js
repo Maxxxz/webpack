@@ -14,13 +14,18 @@ const baseConfig = {
 	*1.插件CommonsChunkPlugin可创建公用模块，只在一开始的时候引入（所有的公用块都是一开始直接打包还是到每次对应文件require的时候才加载？）
 	*2.一般经验，每个 HTML 文档只使用一个入口起点。
 	*/
-	entry: {						
-		pageOne: './src/enter/pageOne/index.js'
-		,pageTwo: './src/enter/pageTwo/index.js'
-		,pageThree: './src/enter/pageThree/index.js'
-		,common: ['./src/js/common/test1.js','./src/js/common/test2.js']	//主动定义公用模块！！
-		,antd: './src/antd/index.js'		//模拟antd公用模块
-		,vendor: 'moment'					//公用插件moment
+	entry: {					
+		//key（命名不做限制）: '模块名/绝对路径+文件/相对路径+文件'	
+		'pageOne': './src/enter/pageOne/index.js'
+		,'pageTwo': './src/enter/pageTwo/index.js'
+		,'pageThree': './src/enter/pageThree/index.js'
+
+		//公用部分
+		//key（命名与下面的CommonsChunkPlugin里names对应，不然还是会打包进去到被引入的模块里）: '上面命名规则/数组[上面命名规则,上面命名规则]'
+		,'common': ['./src/js/common/test1.js','./src/js/common/test2.js']	//主动定义公用模块！！
+		,'antd': './src/antd/index.js'		//公用模块-antd   
+		,'moment': 'moment'			//公用插件-moment  
+		// ,'test3': './src/js/common/test3.js'	//主动定义公用模块！！
 	}
 }
 
@@ -89,8 +94,10 @@ const devConfig = {
 		* 只能提取入口主动定义的公用模块！
 		*/
 		new webpack.optimize.CommonsChunkPlugin({
+			//名字对应上面公用模块的名字，如果此处有名字，上面没有，就不会生成包文件，并且webpack内置的一些函数会打包到最后一个公用模块里。
+			//上下文字顺序可不一致，只是此处导致最后一个文件会打包进去一些webpack内置的东西，第一个文件会打包其他满足下面函数定义但上面没有抽出的公用模块。
 			// name: "test", // or
-			names: ["common","antd","vendor","otherVender"]	
+			names: ["pub","common","antd","moment","otherVender" ]	//
 			// 忽略该值就会选择入口的全部chunks
 			// 这个一定是对应entry入口的名字！！ 并且需要比入口文件先提前引入
 			// 这是 common chunk 的名称。已经存在的 chunk 可以通过传入一个已存在的 chunk 名称而被选择。
@@ -101,7 +108,9 @@ const devConfig = {
 			// common chunk 的文件名模板。可以包含与 `output.filename` 相同的占位符。
 			// 如果被忽略，原本的文件名不会被修改(通常是 `output.filename` 或者 `output.chunkFilename`)
 
-			/*,minChunks: function (module) {		//搭配name最后多一个一起使用，可以是子文件超过*此调用就放到公用里
+
+			/*,
+			看下面的minChunks: function (module) {		//搭配name最后多一个一起使用，可以是子文件超过*此调用就放到公用里
                // 该配置假定你引入的 vendor 存在于 node_modules 目录中
                console.log("module",module.context);
                return module.context && module.context.indexOf('node_modules') !== -1;
@@ -111,35 +120,53 @@ const devConfig = {
 			// 数量必须大于等于2，或者少于等于 chunks的数量
 			// 传入 `Infinity` 会马上生成 公共chunk，但里面没有模块。
 			// 你可以传入一个 `function` ，以添加定制的逻辑（默认是 chunk 的数量）
- 			// 随着 入口chunk 越来越多，用Infinity这个配置保证没其它的模块会打包进 公共chunk  ？？？不懂
+ 			// 随着 入口chunk 越来越多，用Infinity(无穷)这个配置保证没其它的模块会打包进 公共chunk ，确保公用模块不会被撑太大！ 
 
-			//chunks: "['./src/js/common/test1.js']",     ？？？
+ 			/*module为webpack中对应文件的id等信息，count是该文件被引用的次数  ??count次数只对入口有效还是对ensure引入的模块也有效*/ 
+ 			/*number/Infinity(无穷)或者function*/
+ 			,minChunks: function(module, count) {
+
+		    	// 如果模块是一个路径，而且在路径中有 "test3" 这个名字出现，
+			    // 而且它还被t个不同的 chunks/入口chunk 所使用，那请将它拆分到
+			    // 会被打包到names里第一个文件名的路径中。
+			    
+			    var t = 2;
+			    if(module.resource && (/test3/).test(module.resource) && count >= t){
+			    	console.log('我');
+				    console.log(module.resource); //module太大了，输出文件路径就好
+				    console.log(count);
+			    }
+			    return module.resource && (/test3/).test(module.resource) && count >= t;
+			}
+
+			// ,chunks: "[common]"	??给了入口名但是没啥用
 			// 通过 chunk name 去选择 chunks 的来源。chunk 必须是  公共chunk 的子模块。
 			// 如果被忽略，所有的，所有的 入口chunk (entry chunk) 都会被选择。
 
-			,children: false // boolean,  搭配names给多一个使用，true的话入口文件引入的文件是全部打包到公用的
-			// 如果设置为 `true`，所有  公共chunk 的子模块都会被选择
+			,children: false  //??未使用
+			// boolean,  搭配names给多一个使用，true的话入口文件引入的文件是全部打包到公用的
+			// 如果设置为 `true`，所有  公共chunk 的子模块都会被选择	??不知道有啥用
 
-			// ,async: true, //boolean|string,  
+			// ,async: true, //boolean|string,  	//??未使用
 			// 如果设置为 `true`，一个异步的  公共chunk 会作为 `options.name` 的子模块，和 `options.chunks` 的兄弟模块被创建。
 			// 它会与 `options.chunks` 并行被加载。可以通过提供想要的字符串，而不是 `true` 来对输出的文件进行更换名称。
 
-			// minSize: number
+			// ,minSize: 5   ???会导致moment和antd模块打包到了对应入口文件里，原因未知，暂时别用吧
 			// 在 公共chunk 被创建立之前，所有 公共模块 (common module) 的最少大小。
 		})
-		,new webpack.optimize.UglifyJsPlugin({  //详情见 http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
-		  compress: {         //压缩配置对应的配置这里 https://github.com/mishoo/UglifyJS2#usage
-		    screw_ie8: false,
-		    warnings: false,
-		    drop_debugger: true,
-		    drop_console: true
-		  },
-		  output: {comments: false},
-		  mangle: false,   //去掉压缩混淆，不然会出问题。
-		  sourceMap: false //去掉sourceMap。
-		})
+		// ,new webpack.optimize.UglifyJsPlugin({  //详情见 http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+		//   compress: {         //压缩配置对应的配置这里 https://github.com/mishoo/UglifyJS2#usage
+		//     screw_ie8: false,
+		//     warnings: false,
+		//     drop_debugger: true,
+		//     drop_console: true
+		//   },
+		//   output: {comments: false},
+		//   mangle: false,   //去掉压缩混淆，不然会出问题。
+		//   sourceMap: false //去掉sourceMap。
+		// })
 		/*
-		* 生成入口文件的hashmap
+		* 生成entry入口文件的hashmap
 		* 用第二个吧。
 		*/
 		,new ManifestPlugin({	//https://www.npmjs.com/package/webpack-manifest-plugin

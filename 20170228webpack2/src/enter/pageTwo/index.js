@@ -1,5 +1,6 @@
 require("./../../js/common/test2");
 var moment = require('moment');
+require("./../../js/common/test3");
 import createHistory from 'history/createBrowserHistory';
 
 const history = createHistory()
