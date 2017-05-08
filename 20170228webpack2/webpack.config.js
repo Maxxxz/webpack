@@ -2,11 +2,23 @@ const path = require('path');
 const webpack = require('webpack'); 	//访问内置的插件,也可以自己写插件的！
 
 var webpackMerge = require('webpack-merge');				//合并的插件
+
 var ManifestPlugin = require('webpack-manifest-plugin');	//生成对应hash值map的插件	
-var AssetsPlugin = require('assets-webpack-plugin');		
+var AssetsPlugin = require('assets-webpack-plugin');	
+
+const ExtractTextPlugin = require('extract-text-webpack-plugin');	//提取样式文件
+// 多个提取实例
+const extractCSS = new ExtractTextPlugin({filename:'stylesheets/[name].[chunkhash].css'});	
+// 详细参数见：http://www.css88.com/doc/webpack2/plugins/extract-text-webpack-plugin/。???会把重复引用的css样式分别打包到不同的文件生产的样式文件，看怎么处理比较合适
+// const extractLESS = new ExtractTextPlugin('stylesheets/[name].[chunkhash].less');	//这哪是未用到。用于提取less等
+
 //(function(exports, require, module, __filename, __dirname){\n, 在尾部添加了\n}); 利用node添加的函数获取路径
 
+
 console.log( "__dirname", __dirname, path.resolve(__dirname, './dist') );	
+
+//--define process.env.NODE_ENV="'dev'" windows下执行失效，要安装插件npm install cross-env --save-dev 然后用 cross-env process.env.NODE_ENV='dev' 去添加node的执行环境
+console.log("process.env.NODE_ENV",process.env.NODE_ENV);	
 
 const baseConfig = {
 	/*
@@ -42,9 +54,10 @@ const devConfig = {
 		// ,publicPath: 'http://cdn.example.com/assets/'	 //1打包后文件对应的引用路径。建议写成变量提取出来方便修改， 2加了路径里加了 [hash]/会报路径文件不允许用chunkhash的错
 		//下面文件都在上面path路径里生成
 		,filename: '[name].[chunkhash].bundle.js'	//打包后的文件名上面几个对应的entry入口文件
-		,chunkFilename: 'js/[id].[chunkhash].bundle.js'	//各个模块对应生成的文件
+		,chunkFilename: 'js/[name].[chunkhash].bundle.js'	//通过require.ensure异步引入的模块对应生成的文件，name:require.ensure()最后一个参数，如果没有给参数就自动赋值id	//[id].[chunkhash].bundle.js
 		//,hotUpdateChunkFilename: 'hot/[id].[hash].hot-update.js' //热部署打包生成的文件
 		//,sourceMapFilename: 'hot/[file].[id].[hash]'		//JavaScript 文件的 SourceMap 的文件名。
+		//可以在内部引用require.ensure实现按需加载？
 	}
 	/*
 	* 加载器，用于require加载js、css、scss等
@@ -79,7 +92,13 @@ const devConfig = {
 			*/
 			{
 				test: /\.css$/, 
-				use: [ 'style-loader', 'css-loader' ]	
+				// use: [ 'style-loader', 'css-loader' ]	//原版
+				use: extractCSS.extract({			//没有讲fallback和use是什么意思
+					fallback: "style-loader",	//加载器 (例如 'style-loader'), 应用于当 css 没有被提取(也就是一个额外的 chunk，当 allChunks: false)
+					use: "css-loader",	//	(必填), 加载器 (Loader), 被用于将资源转换成一个输出的 CSS 模块
+					// publicPath: ''	//对加载器的 publicPath 配置重写
+		  		})
+		  		// use: extractCSS.extract([ 'css-loader', 'style-loader' ])
 			}
 		]
 	}
@@ -139,15 +158,15 @@ const devConfig = {
 			    return module.resource && (/test3/).test(module.resource) && count >= t;
 			}
 
-			// ,chunks: "[common]"	??给了入口名但是没啥用
+			// ,chunks: "[common]"	???给了入口名但是没啥用
 			// 通过 chunk name 去选择 chunks 的来源。chunk 必须是  公共chunk 的子模块。
 			// 如果被忽略，所有的，所有的 入口chunk (entry chunk) 都会被选择。
 
-			,children: false  //??未使用
+			,children: false  //???未使用
 			// boolean,  搭配names给多一个使用，true的话入口文件引入的文件是全部打包到公用的
-			// 如果设置为 `true`，所有  公共chunk 的子模块都会被选择	??不知道有啥用
+			// 如果设置为 `true`，所有  公共chunk 的子模块都会被选择	???不知道有啥用
 
-			// ,async: true, //boolean|string,  	//??未使用
+			// ,async: true, //boolean|string,  	//???未使用
 			// 如果设置为 `true`，一个异步的  公共chunk 会作为 `options.name` 的子模块，和 `options.chunks` 的兄弟模块被创建。
 			// 它会与 `options.chunks` 并行被加载。可以通过提供想要的字符串，而不是 `true` 来对输出的文件进行更换名称。
 
@@ -169,16 +188,20 @@ const devConfig = {
 		* 生成entry入口文件的hashmap
 		* 用第二个吧。
 		*/
-		,new ManifestPlugin({	//https://www.npmjs.com/package/webpack-manifest-plugin
-		  fileName: 'my-manifest.js',
-		  basePath: './'
-		})
+		// ,new ManifestPlugin({	//https://www.npmjs.com/package/webpack-manifest-plugin
+		//   fileName: 'my-manifest.js',
+		//   basePath: './'
+		// })
 		,new AssetsPlugin({	//https://www.npmjs.com/package/assets-webpack-plugin
 			filename:'webpack-assets.js',
 			processOutput: function (assets) {
 			    return 'window.staticMap = ' + JSON.stringify(assets)
 			}
 		})
+		,extractCSS
+		// ,new webpack.DefinePlugin({		//windows下执行失效
+		// 	'process.env.NODE_ENV':'production'
+		// })
 	]
 	  
 };

@@ -1,4 +1,4 @@
-require('./form');
+
 require.ensure(
 	[],
 	function(require){	
@@ -6,4 +6,4 @@ require.ensure(
 	}, 
 	'proCommon' 
 );
-console.log("product-detail-index");
+console.log("product-list-index");
