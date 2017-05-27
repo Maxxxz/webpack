@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack'); 	//访问内置的插件,也可以自己写插件的！
 
-var webpackMerge = require('webpack-merge');				//合并的插件
+var webpackMerge = require('webpack-merge');				//合并JSON的插件
 
 var ManifestPlugin = require('webpack-manifest-plugin');	//生成对应hash值map的插件	
 var AssetsPlugin = require('assets-webpack-plugin');	
@@ -193,7 +193,7 @@ const devConfig = {
 		//   basePath: './'
 		// })
 		,new AssetsPlugin({	//https://www.npmjs.com/package/assets-webpack-plugin
-			filename:'webpack-assets.js',
+			filename:'webpack-assets.js',				//对这个文件的缓存优化，有用wepack的插件生活从HTML才行
 			processOutput: function (assets) {
 			    return 'window.staticMap = ' + JSON.stringify(assets)
 			}
