@@ -29,8 +29,12 @@ const baseConfig = {
 	entry: {					
 		//key（命名不做限制）: '模块名/绝对路径+文件/相对路径+文件'	
 		'pageOne': './src/enter/pageOne/index.js'
-		,'pageTwo': './src/enter/pageTwo/index.js'
-		,'pageThree': './src/enter/pageThree/index.js'
+		// ,'pageTwo': './src/enter/pageTwo/index.js'
+		// ,'pageThree': './src/enter/pageThree/index.js'
+
+		//投入使用，上面的是测试的
+		,'pageUse': './src/enter/pageUse/index.js'
+		//End投入使用
 
 		//公用部分
 		//key（命名与下面的CommonsChunkPlugin里names对应，不然还是会打包进去到被引入的模块里）: '上面命名规则/数组[上面命名规则,上面命名规则]'
@@ -38,6 +42,8 @@ const baseConfig = {
 		,'antd': './src/antd/index.js'		//公用模块-antd   
 		,'moment': 'moment'			//公用插件-moment  
 		// ,'test3': './src/js/common/test3.js'	//主动定义公用模块！！
+
+
 	}
 }
 
@@ -51,7 +57,7 @@ const devConfig = {
 	*/
 	output: {
 		path: __dirname + '/dist'					//打包输出的路径：1.此处是绝对路径，2.用 ./指定到相对路径打包时会报错， 3 path.resolve(__dirname, './dist') 也可拼接链接,且后者必须是相对链接！ 4.单个入口文件名见文档http://www.css88.com/doc/webpack2/concepts/output/
-		// ,publicPath: 'http://cdn.example.com/assets/'	 //1打包后文件对应的引用路径。建议写成变量提取出来方便修改， 2加了路径里加了 [hash]/会报路径文件不允许用chunkhash的错
+		,publicPath: './dist/'	 //1打包后文件对应的引用路径。建议写成变量提取出来方便修改， 2加了路径里加了 [hash]/会报路径文件不允许用chunkhash的错
 		//下面文件都在上面path路径里生成
 		,filename: '[name].[chunkhash].bundle.js'	//打包后的文件名上面几个对应的entry入口文件
 		,chunkFilename: 'js/[name].[chunkhash].bundle.js'	//通过require.ensure异步引入的模块对应生成的文件，name:require.ensure()最后一个参数，如果没有给参数就自动赋值id	//[id].[chunkhash].bundle.js
@@ -116,7 +122,7 @@ const devConfig = {
 			//名字对应上面公用模块的名字，如果此处有名字，上面没有，就不会生成包文件，并且webpack内置的一些函数会打包到最后一个公用模块里。
 			//上下文字顺序可不一致，只是此处导致最后一个文件会打包进去一些webpack内置的东西，第一个文件会打包其他满足下面函数定义但上面没有抽出的公用模块。
 			// name: "test", // or
-			names: ["pub","common","antd","moment","otherVender" ]	//
+			names: ["pub","common","antd","moment","webpackfn" ]	//
 			// 忽略该值就会选择入口的全部chunks
 			// 这个一定是对应entry入口的名字！！ 并且需要比入口文件先提前引入
 			// 这是 common chunk 的名称。已经存在的 chunk 可以通过传入一个已存在的 chunk 名称而被选择。
@@ -192,8 +198,12 @@ const devConfig = {
 		//   fileName: 'my-manifest.js',
 		//   basePath: './'
 		// })
-		,new AssetsPlugin({	//https://www.npmjs.com/package/assets-webpack-plugin
+
+		// https://www.npmjs.com/package/assets-webpack-plugin
+		// publicPath 输出地址会带上 publicPath
+		,new AssetsPlugin({	
 			filename:'webpack-assets.js',				//对这个文件的缓存优化，有用wepack的插件生活从HTML才行
+			prettyPrint: true,
 			processOutput: function (assets) {
 			    return 'window.staticMap = ' + JSON.stringify(assets)
 			}
