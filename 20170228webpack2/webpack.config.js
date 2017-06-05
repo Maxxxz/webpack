@@ -81,14 +81,16 @@ const devConfig = {
 			{
 				test: /\.js$/,
 				use: {								//注意webpack2一些属性的名称改变以及位置移动
-		            loader: 'babel-loader',		
+		            loader: 'babel-loader',		//可以用缓存优化速度http://www.css88.com/doc/webpack2/loaders/babel-loader/	
 		            options: {
-						presets: ['es2015']
+						presets: ['es2015', 'stage-0'],
+						plugins: ['transform-runtime']
 					}
 		        },
-				include: [
-					path.join(process.cwd(), './src/js')
-				],
+				// include: [
+				// 	path.join(process.cwd(), './src/js'),
+				// 	path.join(process.cwd(), './src/enter')
+				// ],
 				exclude: /(node_modules|bower_components|common)/,
 				
 			},
