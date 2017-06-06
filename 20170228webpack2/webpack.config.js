@@ -6,14 +6,14 @@ var webpackMerge = require('webpack-merge');				//合并JSON的插件
 var ManifestPlugin = require('webpack-manifest-plugin');	//生成对应hash值map的插件	
 var AssetsPlugin = require('assets-webpack-plugin');	
 
-const ExtractTextPlugin = require('extract-text-webpack-plugin');	//提取样式文件
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;	//打包结果图解 https://github.com/th0r/webpack-bundle-analyzer
+const ExtractTextPlugin = require('extract-text-webpack-plugin');	//提取样式文件	
 // 多个提取实例
 const extractCSS = new ExtractTextPlugin({filename:'stylesheets/[name].[chunkhash].css'});	
 // 详细参数见：http://www.css88.com/doc/webpack2/plugins/extract-text-webpack-plugin/。???会把重复引用的css样式分别打包到不同的文件生产的样式文件，看怎么处理比较合适
 // const extractLESS = new ExtractTextPlugin('stylesheets/[name].[chunkhash].less');	//这哪是未用到。用于提取less等
 
 //(function(exports, require, module, __filename, __dirname){\n, 在尾部添加了\n}); 利用node添加的函数获取路径
-
 
 console.log( "__dirname", __dirname, path.resolve(__dirname, './dist') );	
 
@@ -211,6 +211,11 @@ const devConfig = {
 			}
 		})
 		,extractCSS
+		,new BundleAnalyzerPlugin({
+			analyzerHost: '127.0.0.1',
+			// Port that will be used in `server` mode to start HTTP server.
+			analyzerPort: 8881,
+		})	//打包结果图解 https://github.com/th0r/webpack-bundle-analyzer
 		// ,new webpack.DefinePlugin({		//windows下执行失效
 		// 	'process.env.NODE_ENV':'production'
 		// })

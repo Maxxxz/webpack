@@ -1,3 +1,3 @@
-var test = '测试一下';
-
-export {test}
+require("./use1");
+require("./use2");
+console.log('useIndex');

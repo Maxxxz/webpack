@@ -6,10 +6,10 @@ import t from "./../../js/common/test1";
 console.log(t.a);
 console.log(t2);
 
-console.log('use');
+console.log('pageuse');
 
-import test from "./../../js/use/index.js";
-console.log(test);
+// import test from "./../../js/use/index.js";
+// console.log(test);
 
 document.querySelector('#test').onclick=function(){
 	// var b = require.ensure(
@@ -24,31 +24,26 @@ document.querySelector('#test').onclick=function(){
 	// alert(2);
 	// console.log('b',b);
 
-	const f = () => {
-	  return new Promise((resolve, reject) => {
-	    require.ensure(
-		[], 
-		function(require){
-		    var test = require('./../../js/use/index.js');
-		    console.log('test',test);
-		    alert(1);
-		    reject(test); 
-		},
-		'use');
-	  });
-	};
 
-	const testAsync = async () => {
-	  try {
-	    const t = await f();
-	    console.log('t',t);
-	  } catch (err) {
-	    console.log('err',err);
-	  }
-	};
+	var fn = ()=>{
+		return  new Promise((resolve, reject) => {
+				    require.ensure(
+						[], 
+						function(require){
+						    var test = require('./../../js/use/index.js');
+						    console.log('2',test);
+						    // resolve('resolve');
+						},
+						'use');
+					});
+	}
 
-	testAsync();
-
-	alert(2);
+	async function asyncFn() {
+	  console.log(1);
+	  const result = await fn();
+	  console.log(3,result);
+	 }
+	asyncFn();
+	console.log(4);
 
 }
