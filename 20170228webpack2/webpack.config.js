@@ -25,6 +25,7 @@ const baseConfig = {
 	* 入口
 	*1.插件CommonsChunkPlugin可创建公用模块，只在一开始的时候引入（所有的公用块都是一开始直接打包还是到每次对应文件require的时候才加载？）
 	*2.一般经验，每个 HTML 文档只使用一个入口起点。
+	*3.入口文件间在webpack1+中不允许相互引用。在webpack2+中允许相互引用。且必须依赖CommonsChunkPlugin去切割文件，不然还是会被打包到一起。
 	*/
 	entry: {					
 		//key（命名不做限制）: '模块名/绝对路径+文件/相对路径+文件'	
@@ -110,6 +111,17 @@ const devConfig = {
 			}
 		]
 	}
+
+	/*
+	* 解析器
+	* 可以自己写插件，方法见http://www.css88.com/doc/webpack2/configuration/resolve
+	*/
+	,resolve:{
+		alias:{
+			'antd': path.resolve(__dirname, './src/antd/index.js'),
+		}
+	}
+
 	/*
 	* 插件库
 	* 可以自己写插件，方法见 http://www.css88.com/doc/webpack2/concepts/plugins/。
@@ -123,8 +135,10 @@ const devConfig = {
 		new webpack.optimize.CommonsChunkPlugin({
 			//名字对应上面公用模块的名字，如果此处有名字，上面没有，就不会生成包文件，并且webpack内置的一些函数会打包到最后一个公用模块里。
 			//上下文字顺序可不一致，只是此处导致最后一个文件会打包进去一些webpack内置的东西，第一个文件会打包其他满足下面函数定义但上面没有抽出的公用模块。
+			//1入口文件有此处names没有，路径为入口文件的路径。
+			//2入口文件没有此处names有，不会提取为独立的包，需要在minchunks里处理。
 			// name: "test", // or
-			names: ["pub","common","antd","moment","webpackfn" ]	//
+			names: ["pub","antd","moment","webpackfn" ]	//,"common"
 			// 忽略该值就会选择入口的全部chunks
 			// 这个一定是对应entry入口的名字！！ 并且需要比入口文件先提前引入
 			// 这是 common chunk 的名称。已经存在的 chunk 可以通过传入一个已存在的 chunk 名称而被选择。
@@ -151,20 +165,20 @@ const devConfig = {
 
  			/*module为webpack中对应文件的id等信息，count是该文件被引用的次数  ??count次数只对入口有效还是对ensure引入的模块也有效*/ 
  			/*number/Infinity(无穷)或者function*/
- 			,minChunks: function(module, count) {
+ 		// 	,minChunks: function(module, count) {
 
-		    	// 如果模块是一个路径，而且在路径中有 "test3" 这个名字出现，
-			    // 而且它还被t个不同的 chunks/入口chunk 所使用，那请将它拆分到
-			    // 会被打包到names里第一个文件名的路径中。
+		 //    	// 如果模块是一个路径，而且在路径中有 "test3" 这个名字出现，
+			//     // 而且它还被t个不同的 chunks/入口chunk 所使用，那请将它拆分到
+			//     // 会被打包到names里第一个文件名的路径中。
 			    
-			    var t = 2;
-			    if(module.resource && (/test3/).test(module.resource) && count >= t){
-			    	console.log('我');
-				    console.log(module.resource); //module太大了，输出文件路径就好
-				    console.log(count);
-			    }
-			    return module.resource && (/test3/).test(module.resource) && count >= t;
-			}
+			//     var t = 2;
+			//     if(module.resource && (/test3/).test(module.resource) && count >= t){
+			//     	console.log('我');
+			// 	    console.log(module.resource); //module太大了，输出文件路径就好
+			// 	    console.log(count);
+			//     }
+			//     return module.resource && (/test3/).test(module.resource) && count >= t;
+			// }
 
 			// ,chunks: "[common]"	???给了入口名但是没啥用
 			// 通过 chunk name 去选择 chunks 的来源。chunk 必须是  公共chunk 的子模块。
@@ -211,11 +225,11 @@ const devConfig = {
 			}
 		})
 		,extractCSS
-		,new BundleAnalyzerPlugin({
-			analyzerHost: '127.0.0.1',
-			// Port that will be used in `server` mode to start HTTP server.
-			analyzerPort: 8881,
-		})	//打包结果图解 https://github.com/th0r/webpack-bundle-analyzer
+		// ,new BundleAnalyzerPlugin({
+		// 	analyzerHost: '127.0.0.1',
+		// 	// Port that will be used in `server` mode to start HTTP server.
+		// 	analyzerPort: 8881,
+		// })	//打包结果图解 https://github.com/th0r/webpack-bundle-analyzer
 		// ,new webpack.DefinePlugin({		//windows下执行失效
 		// 	'process.env.NODE_ENV':'production'
 		// })

@@ -11,7 +11,7 @@ console.log('pageuse');
 // import test from "./../../js/use/index.js";
 // console.log(test);
 
-document.querySelector('#test').onclick=function(){
+/*document.querySelector('#test').onclick=function(){
 	// var b = require.ensure(
 	// 	[], 
 	// 	function(require){
@@ -46,4 +46,14 @@ document.querySelector('#test').onclick=function(){
 	asyncFn();
 	console.log(4);
 
+}
+*/
+
+document.querySelector('#test').onclick=function(){
+	require.ensure(['antd'],function(require){
+		var b = require('antd');
+		console.log('1',b);
+		var test = require('./../../js/use/index.js');
+	    console.log('2',test);
+	},'aa');
 }
