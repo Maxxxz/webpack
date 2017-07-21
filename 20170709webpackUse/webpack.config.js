@@ -18,8 +18,8 @@ console.log("process.env.NODE_ENV",process.env.NODE_ENV);
 const baseConfig = {
 	entry: {					
 		'pageOne': './src/entry/index.js',
-		'moment': 'moment'
-		// 'echarts': 'echarts'
+		'moment': 'moment',
+		//'echarts': 'echarts'
 	},
 	// externals:{
 	// 	'moment': 'moment'
@@ -75,6 +75,9 @@ const devConfig = {
 			'echart2': path.resolve(__dirname, './src/common/echarts.min.js'),
 		}
 	}
+	,externals:{
+		'echarts': 'echarts'
+	}
 
 	/*
 	* 插件库
@@ -88,10 +91,10 @@ const devConfig = {
 		*/
 		new webpack.optimize.CommonsChunkPlugin({
 
-			name: "echarts" // or
-			// names: ["echart2","echarts","other"]	//,"common"
+			// name: "echarts" // or
+			names: ["moment","mainfeast"]	//,"common"
 
-			// ,filename: 'common/[name].[chunkhash].js'	
+			,filename: 'common/[name].[chunkhash].js'	
 			// ,children: false  
 
 			// ,async: "true" //boolean|string,  	//???未使用
@@ -104,11 +107,13 @@ const devConfig = {
 			}
 		})
 		,new webpack.optimize.CommonsChunkPlugin({
-			async: "moment" // or
- 			,minChunks: function(module, count) {
-				// console.log('第一个',module);
+			name: "echarts" // or
+ 			,minChunks: function(module){
 				var context = module.context;
-				return context && context.indexOf('moment') >= 0;
+				// if(context && (context.indexOf('echarts') >= 0 || context.indexOf('zrender') >= 0)){
+				// 	console.log('第二个',module);
+				// }
+				return context && (context.indexOf('echarts') >= 0 || context.indexOf('zrender') >= 0);
 			}
 			// ,children: false  //???未使用
 		})
