@@ -75,7 +75,7 @@ const devConfig = {
 			'echart2': path.resolve(__dirname, './src/common/echarts.min.js'),
 		}
 	}
-	,externals:{
+	,externals:{		//仅仅针对入口文件？
 		'echarts': 'echarts'
 	}
 

@@ -1,1 +1,1 @@
-window.staticMap = {"moment":{"js":"./dist/common/moment.40bcaef6771aeb60de60.js"},"pageOne":{"js":"./dist/pageOne.5f04c90c69a6c68e5947.bundle.js"},"echarts":{"js":"./dist/echarts.2c6d8488ef84833f35b7.bundle.js"}}
+window.staticMap = {"moment":{"js":"./dist/common/moment.762ec38ffd486788086f.js"},"pageOne":{"js":"./dist/pageOne.5b3f4010bf957ab327df.bundle.js"},"echarts":{"js":"./dist/echarts.4dba2883e9f1f9bb13cc.bundle.js"}}
