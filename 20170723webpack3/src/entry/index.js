@@ -2,18 +2,9 @@
 // import echart2 from "echart2";
 //  import moment from "moment";
 
-// require.ensure([],function(){
-//     require('./../js/product/index.js')
-// })
-// System.import(/* webpackChunkName: "product" */ './../js/product/index.js').then(module => {
-// 	return module.default;
-// }).catch(err => {
-// 	console.log("Chunk loading failed");
-// });
-
-import(
-	/* "product" */
-  	/* "eager" */
+import (
+	/* webpackChunkName: "product" */
+  	/* webpackMode: "lazy" */
 	'./../js/product/index.js'
 )
 

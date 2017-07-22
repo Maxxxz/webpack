@@ -1,0 +1,1 @@
+window.staticMap = {"product":{"js":"./dist/js/product.d8839eaf815ac4595831.bundle.js"},"moment":{"js":"./dist/common/moment.9b092591449371febbbe.js"},"pageOne":{"js":"./dist/pageOne.6f743217f24812e4df5f.bundle.js"},"mainfeast":{"js":"./dist/common/mainfeast.0bb89000fe148502944d.js"}}

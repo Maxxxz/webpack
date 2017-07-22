@@ -1,12 +1,12 @@
 import moment from 'moment';
-import echarts from 'echarts'; //echarts/lib/
+import echarts from 'echarts/lib/echarts'; //
 
 // var echarts = require('echarts/lib/echarts');
 // 引入柱状图
-require('echarts/lib/chart/bar');
+import 'echarts/lib/chart/bar';
 // 引入提示框和标题组件
-require('echarts/lib/component/tooltip');
-require('echarts/lib/component/title');
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
 
 // 基于准备好的dom，初始化echarts实例
 var myChart = echarts.init(document.getElementById('main'));
