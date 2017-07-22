@@ -1,6 +1,10 @@
 import moment from 'moment';
 import echarts from 'echarts/lib/echarts'; //
-
+import (
+    /* webpackChunkName: "json" */
+    /* webpackMode: "lazy" */
+    './json.js'
+)
 // var echarts = require('echarts/lib/echarts');
 // 引入柱状图
 import 'echarts/lib/chart/bar';
@@ -24,6 +28,7 @@ myChart.setOption({
         data: [5, 20, 36, 10, 10, 20]
     }]
 });
+
 
 
 console.log("product-index");

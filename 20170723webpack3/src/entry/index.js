@@ -2,6 +2,9 @@
 // import echart2 from "echart2";
 //  import moment from "moment";
 
+// import echarts from 'echarts/lib/echarts';
+let t = './../js/product/index.js';
+
 import (
 	/* webpackChunkName: "product" */
   	/* webpackMode: "lazy" */

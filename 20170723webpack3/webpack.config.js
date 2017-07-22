@@ -19,7 +19,7 @@ const baseConfig = {
 	entry: {					
 		'pageOne': './src/entry/index.js',
 		'moment': 'moment',
-		// 'echarts': 'echarts'
+		'echarts': ['echarts/lib/echarts','echarts/lib/component/tooltip','echarts/lib/component/title']
 	},
 	// externals:{			//仅仅针对入口文件？
 	// 	'moment': 'moment'
@@ -89,26 +89,11 @@ const devConfig = {
 		*/
 		new webpack.optimize.CommonsChunkPlugin({	//只会打包写在entry上面的和入口内部文件引入的模块。但是不会打ensure里面的
 			// name: "echarts" // or
-			names: ["moment","mainfeast"]	//,"common",
-			,filename: 'common/[name].[chunkhash].js'	
+			names: ["moment","echarts","mainfeast"]	//,"common",
+			// ,filename: 'common/[name].[chunkhash].js'	
 			// ,children: false  
 			// ,async: "true" //boolean|string,  	//???未使用
 			,minChunks:Infinity
-		})
-
-		,new webpack.optimize.CommonsChunkPlugin({
-			name: "echarts" // or
-			,async: true
-			,children: true
- 			,minChunks: function(module){
-				var context = module.context;
-				console.log('第二个',module);
-				// if(context && (context.indexOf('echarts') >= 0 || context.indexOf('zrender') >= 0)){
-				// 	console.log('第二个',module);
-				// }
-				return context && (context.indexOf('echarts') >= 0 || context.indexOf('zrender') >= 0);
-			}
-			// ,children: false  //???未使用
 		})
 		,new AssetsPlugin({	
 			filename:'webpack-assets.js',				//对这个文件的缓存优化，有用wepack的插件生活从HTML才行
