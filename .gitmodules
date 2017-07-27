@@ -2,3 +2,7 @@
 	path = command
 	url = git@github.com:Maxxxz/npm-command.git
 	branch = master
+[submodule "package"]
+	path = package
+	url = git@github.com:Maxxxz/package.json.git
+	branch = master
