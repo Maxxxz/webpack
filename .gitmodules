@@ -1,0 +1,3 @@
+[submodule "package.json"]
+	path = package.json
+	url = git@github.com:Maxxxz/package.json.git
