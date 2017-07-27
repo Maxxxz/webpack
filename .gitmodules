@@ -1,0 +1,4 @@
+[submodule "command"]
+	path = command
+	url = git@github.com:Maxxxz/npm-command.git
+	branch = master
