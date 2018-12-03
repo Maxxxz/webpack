@@ -1,1 +1,0 @@
-window.staticMap = {"echarts":{"js":"./dist/common/echarts.978fa717c35d6f46d65c.js"},"moment":{"js":"./dist/common/moment.a29f9c60b0153e700e44.js"},"pageOne":{"js":"./dist/pageOne.e6dc8fcd5e70eaf170cf.bundle.js"},"mainfeast":{"js":"./dist/common/mainfeast.a83d4f9cd28d3ad4cbe1.js"}}

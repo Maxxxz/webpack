@@ -1,9 +1,0 @@
-require('./form');
-require.ensure(
-	[],
-	function(require){	
-		require("./../common/proCommon");
-	}, 
-	'proCommon' 
-);
-console.log("product-detail-index");
