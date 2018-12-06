@@ -35,13 +35,17 @@ function PromiseReject(){
 // })
 
 //async await
-test('the data is peanut butter', async () => {
-  expect.assertions(1);
+test.skip('the data is peanut butter', async () => {
+  expect.assertions(1); //不写这个没执行断言库不会被发现,和promise无关系，只是promise中比较容易遇到未执行的情况。
   const data = await PromiseFetch();
   expect(data).toBe('1');
+  // expect('2').toBe('2');
 });
 
-test('the fetch fails with an error', async () => {
+test.skip('the data is peanut butter', () => {
+});
+
+test.skip('the fetch fails with an error', async () => {
   expect.assertions(1);
   try {
     await PromiseReject();

@@ -35,7 +35,7 @@
 
 
 //字符串，支持正则
-test('isI',()=>{
+test.skip('isI',()=>{
   expect('teami').toMatch(/I/i);
 })
 
