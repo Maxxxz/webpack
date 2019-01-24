@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>content</div>
+    <div><button id="btn">add</button></div>
+    <script>
+      var index = 0;
+      document.addEventListener('click', () => {
+        fetch('/data', {
+          headers:{
+            'X-Test-Cache': index++
+          }
+        }).then(resp => {
+          console.log('resp', resp);
+        });
+      });
+    </script>
+  </body>
+</html>
