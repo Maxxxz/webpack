@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>xhr</title>
+  </head>
+  <body>
+    <div>xhr</div>
+    <script>
+      //fetch
+      /* fetch('./error')
+        .then(d => {
+          console.log('1', d);
+        })
+        .catch(err => {
+          console.log('err', err);
+        });
+
+      fetch('./success', {
+        credentials: 'include',
+        referrer: 'no-referrer'
+      })
+        .then(response => {
+          // response.blob().then(function(myBlob) {
+          //   console.log('myBlob', myBlob);
+          // });
+          return response.text();
+        })
+        .then(function(myText) {
+          console.log('myText', myText);
+        })
+        .catch(err => {
+          console.log('err', err);
+        }); */
+    </script>
+    <script>
+      //xmlHttpRequest
+      //ie5和ie6不支持
+      // var request;
+      // if(window.XMLHttpRequest){
+      //   //ie7+,firefox,chrome,opera,safari
+      //   request = new XMLHttpRequest();
+      // }else{
+      //   request = new ActiveXObject(); //IE5,IE6
+      // }
+
+      request('GET', './success');
+
+      function request(methods, url, ...others) {
+        var req = new XMLHttpRequest();
+
+        req.addEventListener('progress', updateProgress, false);
+        req.addEventListener('load', transferComplete, false);
+        req.addEventListener('error', transferFailed, false);
+        req.addEventListener('abort', transferCanceled, false);
+
+        req.onreadystatechange = function() {
+          if (req.readyState === XMLHttpRequest.DONE && req.status === 200) {
+            console.log(req.responseText);
+          }
+        };
+        req.open(methods, url);
+        req.send();
+        // progress on transfers from the server to the client (downloads)
+        function updateProgress(evt) {
+          if (evt.lengthComputable) {
+            var percentComplete = evt.loaded / evt.total;
+          } else {
+            // Unable to compute progress information since the total size is unknown
+          }
+        }
+
+        function transferComplete(evt) {
+          console.log('The transfer is complete.');
+        }
+
+        function transferFailed(evt) {
+          console.log('An error occurred while transferring the file.');
+        }
+
+        function transferCanceled(evt) {
+          console.log('The transfer has been canceled by the user.');
+        }
+      }
+    </script>
+  </body>
+</html>
