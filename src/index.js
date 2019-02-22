@@ -3,7 +3,8 @@
 // import './single';
 // import './adaptee';
 // import './decorator';
-import './proxy';
+// import './proxy';
+import './observer1';
 
 // console.log($('p'));
 
