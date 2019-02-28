@@ -18,7 +18,18 @@
   "homepage": "https://github.com/Maxxxz/practice#readme",
   "lint-staged": {
     "linters": {
-      "**/**/*.{less}": ["stylelint --syntax=less", "git add"]
+      "*.less": [
+        "stylelint --syntax=less",
+        "git add"
+      ],
+      "**/**/*.css": [
+        "stylelint",
+        "git add"
+      ],
+      "*.js": [
+        "eslint",
+        "git add"
+      ]
     }
   },
   "config": {
@@ -28,6 +39,7 @@
     }
   },
   "devDependencies": {
+    "eslint": "^5.14.1",
     "ghooks": "^2.0.4",
     "lint-staged": "^8.1.4",
     "stylelint": "^9.10.1",
