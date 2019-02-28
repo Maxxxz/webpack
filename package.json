@@ -18,7 +18,7 @@
   "homepage": "https://github.com/Maxxxz/practice#readme",
   "lint-staged": {
     "linters": {
-      "*.{less}": ["stylelint --syntax less", "git add"]
+      "**/**/*.{less}": ["stylelint --syntax=less", "git add"]
     }
   },
   "config": {
