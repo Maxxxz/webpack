@@ -1,5 +1,0 @@
-{
-    "hooks": {
-      "commitmsg": "validate-commit-msg"
-    }
-  }
