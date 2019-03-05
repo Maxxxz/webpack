@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>learn vue</title>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{ foo }}</p>
+      <button v-on:click="change">change it</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var obj = {
+        foo: 'bar'
+      };
+      // Object.freeze(obj);
+      // 传入禁止修改的数据，修改将会报错
+      var vm = new Vue({
+        el: '#app',
+        data: obj,
+        methods: {
+          change: function() {
+            this.foo = this.foo + '0';
+          }
+        }
+      });
+
+      vm.$watch('foo', function(newVal, oldVal) {
+        console.log('newVal', newVal);
+        console.log('oldVal', oldVal);
+      });
+    </script>
+  </body>
+</html>
