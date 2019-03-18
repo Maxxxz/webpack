@@ -19,14 +19,14 @@
   "lint-staged": {
     "linters": {
       "*.less": [
-        "stylelint --syntax=less",
+        "stylelint --fix --syntax=less",
         "git add"
       ],
-      "**/**/*.css": [
-        "stylelint",
+      "*.css": [
+        "stylelint --fix",
         "git add"
       ],
-      "./src/*.js": [
+      "*.js": [
         "eslint",
         "git add"
       ]
@@ -49,6 +49,7 @@
     "webpack-cli": "^3.2.3"
   },
   "dependencies": {
-    "koa-session": "^5.10.1"
+    "koa-session": "^5.10.1",
+    "webpack": "^4.29.6"
   }
 }
