@@ -1,0 +1,33 @@
+body,ul,ol,li,h1,h2,h3,h4,h5,h6,p,form,fieldset,table,td,img,div,dl,dt,dd,input{margin:0px; padding:0px;}
+body{background-color:#fff;color:#666;font-size:12px;font-family:'Microsoft YaHei','微软雅黑',Arial,STHeiti,'WenQuanYi Micro Hei',SimSun,sans-serif;min-width:1200px;}
+img{border:none;}
+li{list-style:none;}
+html,body{width:100%}
+ /*outline:none定义无轮廓还有dotted点 dashed虚线 solid实线等*/
+input,select,textarea{outline:none;background:none;border:none;}
+
+/*resize:none;用户不能调整元素大小 both horizontal vertical 用户可调整全部 高度 宽度 */
+textarea{resize:none;}
+
+/*a text-decoration:none下无装饰，blink闪烁，underline下划线，line-through贯穿线 overline上划线*/
+a{text-decoration:none;color:#666;}
+a:hover{color:blue;}
+
+
+/*清除浮动*/
+        /*加在float项*/
+
+.fix:after{content:'';display:block;height:0;overflow:hidden;clear:both}
+.fix{*zoom:1}
+
+
+/*分开font-size: ;line-height;font-family:;来用 比较好body {font:12px/1em  '微软雅黑',Arial}    */
+body{font-size:12px ;line-height: 1em;font-family:'微软雅黑',Arial;}
+
+
+.video {
+    height: auto;
+    width: 100%;
+}
+
+
