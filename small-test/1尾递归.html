@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="cache-control" content="no-store" />
+        <title>尾递归</title>
+        <style>
+            .d1 {
+                width: 200px;
+                height: 200px;
+                padding: 50px;
+                border: 20px solid red;
+            }
+        </style>
+    </head>
+    <body class="holy-grail"></body>
+    <script>
+        'use strict';
+        // 通过递减的累加函数来实践。
+        // 1、非尾递归。这样会爆栈
+        const sum1 = n => {
+            if (n <= 1) return n;
+            return n + sum1(n - 1);
+        };
+        // sum1(100000) 就爆栈了
+        
+        // 2、尾递归，内存优化，及时释放（目前是有safri支持）
+        const sum2 = (n, prevSum = 0) => {
+            if (n <= 1) return n + prevSum;
+            return sum2(n - 1, n + prevSum);
+        };
+        // 3、递归改成遍历（不会爆栈）
+        // Trampoline
+        // Trampoline是对尾递归函数进行处理的一种技巧。我们需要先把上面的sum函数改造一下，再由trampoline函数处理即可：
+
+        const sum0 = (n, prevSum = 0) => {
+            if (n <= 1) return n + prevSum;
+            return () => sum0(n - 1, n + prevSum);
+        };
+        const trampoline = f => (...args) => {
+            let result = f(...args);
+            while (typeof result === 'function') {
+                result = result();
+            }
+            return result;
+        };
+        const sum = trampoline(sum0);
+
+        console.log(sum(1000000)); // 不会栈溢出
+    </script>
+</html>
