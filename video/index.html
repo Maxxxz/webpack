@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>video</title>
+        <link rel="stylesheet" type="text/css" href="src/css/style.css" />
+    </head>
+    <body>
+        <video
+            class="video"
+            autoplay
+            poster="./src/video/1.png"
+            controls
+            src="http://a.weishi.qq.com/a.weishi.qq.com/tjg_115604970_1047_12a6d000fae545688d37d0e63eb9vide.f20.mp4?dis_k=ec1d64692a39891e9fbfffbc4379d7fd&dis_t=1557037417&guid=0508AFC000E081E13F01036CF26192E5&pver=5.0.4&fromtag=0&personid=1551874818320133&&wsadapt=1551874818320133_0505142337_497798041_.205.182_2_2_2_0_0_0_0"
+        ></video>
+    </body>
+    <script>
+        //
+
+        //
+        const cat = './src/video/1faeb562eb5e124b629e7567d522915c.mp4';
+        const online =
+            'http://a.weishi.qq.com/a.weishi.qq.com/tjg_115604970_1047_12a6d000fae545688d37d0e63eb9vide.f20.mp4?dis_k=ec1d64692a39891e9fbfffbc4379d7fd&dis_t=1557037417&guid=0508AFC000E081E13F01036CF26192E5&pver=5.0.4&fromtag=0&personid=1551874818320133&&wsadapt=1551874818320133_0505142337_497798041_.205.182_2_2_2_0_0_0_0';
+        const video = document.querySelector('video');
+        const body = document.querySelector('body');
+        video.addEventListener('pause', event => {
+            console.log(
+                'The Boolean paused property is now true. Either the ' +
+                    'pause() method was called or the autoplay attribute was toggled.'
+            );
+        });
+        video.addEventListener('play', event => {
+            console.log('play');
+            setTimeout(() => {
+                // video.setAttribute('src', cat);
+                body.innerHTML = '<div>123</div>'
+            }, 2000);
+            
+        });
+    </script>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "anydoor",
+  "version": "0.1.0",
+  "description": "for prative node",
+  "main": "src/app.js",
+  "bin": {
+    "anydoor": "bin/anydoor.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "handlebars": "^4.1.1",
+    "yargs": "^13.2.2"
+  }
+}

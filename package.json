@@ -1,0 +1,55 @@
+{
+  "name": "practice",
+  "version": "0.0.0",
+  "description": "for personal pratice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Maxxxz/practice.git"
+  },
+  "author": "maxizhang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Maxxxz/practice/issues"
+  },
+  "homepage": "https://github.com/Maxxxz/practice#readme",
+  "lint-staged": {
+    "linters": {
+      "*.less": [
+        "stylelint --fix --syntax=less",
+        "git add"
+      ],
+      "*.css": [
+        "stylelint --fix",
+        "git add"
+      ],
+      "*.js": [
+        "eslint",
+        "git add"
+      ]
+    }
+  },
+  "config": {
+    "ghooks": {
+      "commit-msg": "validate-commit-msg",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "ghooks": "^2.0.4",
+    "koa-logger": "^3.2.0",
+    "lint-staged": "^8.1.4",
+    "stylelint": "^9.10.1",
+    "stylelint-config-standard": "^18.2.0",
+    "validate-commit-msg": "^2.14.0",
+    "webpack-cli": "^3.2.3"
+  },
+  "dependencies": {
+    "koa-session": "^5.10.1",
+    "webpack": "^4.29.6"
+  }
+}

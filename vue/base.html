@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>vue</title>
+  </head>
+  <body>
+    <div id="app">
+      {{ message }}
+    </div>
+    <div id="app-2">
+      <span v-bind:title="message">
+        鼠标悬停几秒钟查看
+      </span>
+    </div>
+    <div id="app-3">
+      <p v-if="seen">can u see me</p>
+    </div>
+    <div id="app-4">
+      <ol>
+        <li v-for="zuo in todos">{{ zuo.text }}</li>
+      </ol>
+    </div>
+    <div id="app-5">
+      <p>{{ message }}</p>
+      <button v-on:click="reverseMessage">逆转消息</button>
+    </div>
+    <div id="app-6">
+      <p>{{ message }}</p>
+      <input v-model="message" />
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue'
+        }
+      });
+      //添加指令
+      var app2 = new Vue({
+        el: '#app-2',
+        data: {
+          message: '页面加载' + new Date().toLocaleDateString()
+        }
+      });
+      //添加条件指令
+      var app3 = new Vue({
+        el: '#app-3',
+        data: {
+          seen: true
+        }
+      });
+      //添加项目列表
+      var app4 = new Vue({
+        el: '#app-4',
+        data: {
+          todos: [
+            { text: '学习 js' },
+            { text: '学习vue' },
+            { text: '整个项目' }
+          ]
+        }
+      });
+      //添加消息
+      var app5 = new Vue({
+        el: '#app-5',
+        data: {
+          message: 'maxizhang, try ur best'
+        },
+        methods: {
+          reverseMessage: function() {
+            this.message = this.message
+              .split('')
+              .reverse()
+              .join('');
+          }
+        }
+      });
+      //v-modal实现双向绑定
+      var app6 = new Vue({
+        el: '#app-6',
+        data: {
+          message: 'Hello maxizhang'
+        }
+      });
+    </script>
+  </body>
+</html>
