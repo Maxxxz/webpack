@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc1: Source: index.js</title>
+    <title>JSDoc1: Source: file2.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: index.js</h1>
+    <h1 class="page-title">Source: file2.js</h1>
 
     
 
@@ -26,43 +26,34 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * HelloWorld类存储一位客人的名字，并打招呼。
+            <pre class="prettyprint source linenums"><code>/** @module color/mixer */
+
+/** The name of the module. */
+export const name = 'mixer';
+
+/** The most recent blended color. */
+export var lastColor = null;
+
+/**
+ * Blend two colors together.
+ * @param {string} color1 - The first color, in hexidecimal format.
+ * @param {string} color2 - The second color, in hexidecimal format.
+ * @return {string} The blended color.
  */
-class HelloWorld {
+export function blend(color1, color2) {}
 
-    constructor(){
-        this.firstName = '';
-        this.lastName = '';
-    }
+// convert color to array of RGB values (0-255)
+function rgbify(color) {}
 
+export {
     /**
-     * 设置客人的姓名
-     *
-     * @param {String} lastName 姓
-     * @param {String} firstName 名
+     * Get the red, green, and blue values of a color.
+     * @function
+     * @param {string} color - A color, in hexidecimal format.
+     * @returns {Array.&lt;number>} An array of the red, green, and blue values,
+     * each ranging from 0 to 255.
      */
-    setName(lastName, firstName){
-        this.lastName = lastName;
-        this.firstName = firstName;
-    }
-
-    /**
-     * 获取客人的全名
-     *
-     * @return {String} 客人的姓名
-     */
-    getFullName(){
-        return this.lastName + ' ' + this.firstName;
-    }
-
-    /**
-     * 向客人打招呼
-     *
-     */
-    sayHello(){
-        console.log('Hello, ' + this.getFullName());
-    }
+    rgbify as toRgb
 }</code></pre>
         </article>
     </section>

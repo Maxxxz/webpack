@@ -7,7 +7,7 @@
         "includePattern": ".+\\.js(doc)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     },
-    "plugins": [],
+    "plugins": ["./jsdoc.plugins/index.js"],
     "templates": {
         "cleverLinks": false,
         "monospaceLinks": false,
