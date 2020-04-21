@@ -19,7 +19,7 @@ exports.handlers = {
             ' */',
         ];
         // obj.source += extraDoc.join('\n');  // 可以给源文件加header
-        console.log('beforeParse', obj.filename, obj.source);
+        // console.log('beforeParse', obj.filename, obj.source);
     },
     // 每当JSDoc注释被发现,jsdocCommentFound事件就会被触发。
     // 注释可以或不与任何代码相关联。您可以在注释被处理之前使用此事件修改注释的内容。

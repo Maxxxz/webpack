@@ -1,7 +1,7 @@
 <?js
     var self = this;
     var isGlobalPage;
-
+    console.log('containers')
     docs.forEach(function(doc, i) {
 ?>
 
@@ -149,6 +149,7 @@
 
     <?js
         var methods = self.find({kind: 'function', memberof: isGlobalPage ? {isUndefined: true} : doc.longname});
+        // console.log('methods', methods)
         if (methods && methods.length && methods.forEach) {
     ?>
         <h3 class="subsection-title">Methods</h3>
