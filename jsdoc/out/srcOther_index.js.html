@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc1: Class: exports</title>
+    <title>JSDoc1: Source: srcOther/index.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,137 +17,55 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: exports</h1>
+    <h1 class="page-title">Source: srcOther/index.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>exports<span class="signature">()</span><span class="type-signature"></span></h2>
-        
-            <div class="class-description">this is MyClass.</div>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-    <h2>Constructor</h2>
-    
-
-    
-    <h4 class="name" id="exports"><span class="type-signature"></span>new exports<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="srcOther_demo.js.html">srcOther/demo.js</a>, <a href="srcOther_demo.js.html#line4">line 4</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * HelloWorld类存储一位客人的名字，并打招呼。
+ */
+class HelloWorld {
+
+    constructor(){
+        this.firstName = '';
+        this.lastName = '';
+    }
+
+    /**
+     * 设置客人的姓名
+     *
+     * @param {String} lastName 姓
+     * @param {String} firstName 名
+     */
+    setName(lastName, firstName){
+        this.lastName = lastName;
+        this.firstName = firstName;
+    }
+
+    /**
+     * 获取客人的全名
+     *
+     * @return {String} 客人的姓名
+     */
+    getFullName(){
+        return this.lastName + ' ' + this.firstName;
+    }
+
+    /**
+     * 向客人打招呼
+     *
+     */
+    sayHello(){
+        console.log('Hello, ' + this.getFullName());
+    }
+}</code></pre>
+        </article>
+    </section>
 
 
 

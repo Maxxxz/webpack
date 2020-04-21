@@ -6,6 +6,7 @@
         "dictionaries": ["jsdoc","closure"]
     },
     "source": {
+        "include": ["./src", "./srcOther"], //  只支持到文件路径级别，并且默认值是src
         "includePattern": ".+\\.js(doc)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     },

@@ -29,6 +29,7 @@ export function add(num1, num2) {
  * @param {string} person.name - The name of the employee.
  * @param {string} person.host - The employee's host.
  * @param {string} orgin
+ * @tryNow true
  */
 export function show(person, orgin) {
     return person.name + person.host + orgin;
