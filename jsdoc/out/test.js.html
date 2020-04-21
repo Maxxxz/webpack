@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc1: Source: index.js</title>
+    <title>JSDoc1: Source: test.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: index.js</h1>
+    <h1 class="page-title">Source: test.js</h1>
 
     
 
@@ -27,43 +27,41 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * HelloWorld类存储一位客人的名字，并打招呼。
+ * @description 求两个数的和&lt;br />
+ * 1) 参数将强制转换为Number类型&lt;br />
+ * 2) 这是一个全局的公用方法
+ * @method add
+ * @param {Number} num1 数1
+ * @param {Number} num2 数2
+ * @return {Number} 数1和数2的和
+ * @since 2013-08-04
+ * @author lee
+ * @example
+ * var sum = add(3,5); &lt;br />
+ * alert(sum); // 8
+ * @static
  */
-class HelloWorld {
+export function add(num1, num2) {
+    return Number(num1) + Number(num2);
+}
 
-    constructor(){
-        this.firstName = '';
-        this.lastName = '';
-    }
-
-    /**
-     * 设置客人的姓名
-     *
-     * @param {String} lastName 姓
-     * @param {String} firstName 名
-     */
-    setName(lastName, firstName){
-        this.lastName = lastName;
-        this.firstName = firstName;
-    }
-
-    /**
-     * 获取客人的全名
-     *
-     * @return {String} 客人的姓名
-     */
-    getFullName(){
-        return this.lastName + ' ' + this.firstName;
-    }
-
-    /**
-     * 向客人打招呼
-     *
-     */
-    sayHello(){
-        console.log('Hello, ' + this.getFullName());
-    }
-}</code></pre>
+/**
+ * Assign the project to an employee.
+ * @description 求两个数的和&lt;br />
+ * 1) 参数将强制转换为Number类型&lt;br />
+ * 2) 这是一个全局的公用方法
+ * @method show
+ * @since 2013-08-04
+ * @author lee
+ * @param {Object} person - The employee who is responsible for the project.
+ * @param {string} person.name - The name of the employee.
+ * @param {string} person.host - The employee's host.
+ * @param {string} orgin
+ */
+export function show(person, orgin) {
+    return person.name + person.host + orgin;
+}
+</code></pre>
         </article>
     </section>
 
