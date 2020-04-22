@@ -10,10 +10,10 @@
     <?js examples.forEach(function(example){ var code = example.code || example.text?>
         <div>
             <div>
-                <div id="<?js= tid?>" contenteditable="true"><?js=code.replace(/\n|\r/g, '<br />') ?></div>
+                <div class="try-now-code" id="<?js= tid?>" contenteditable="true"><?js=code.replace(/\n|\r/g, '<br />') ?></div>
             </div>
             <div>
-                <button id="<?js= bid?>">调用</button>
+                <button class="try-now-button" id="<?js= bid?>">调用</button>
             </div>
             <script>
                 document.querySelector("#<?js= bid?>").addEventListener('click', async function(){
