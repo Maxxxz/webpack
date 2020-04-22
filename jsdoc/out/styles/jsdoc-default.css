@@ -690,3 +690,17 @@ dl.param-type {
     width: 100%;
   }
 }
+
+.try-now-code {
+  font-size: 18px;
+  line-height: 24px;
+  display: block;
+  background-color: #fff;
+  color: #4D4E53;
+  border: 1px solid #ddd;
+  padding: 20px 14px;
+}
+
+.try-now-button {
+  margin-top: 5px;
+}
