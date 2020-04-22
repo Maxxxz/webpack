@@ -4,17 +4,18 @@
         "dictionaries": ["jsdoc", "closure"]
     },
     "source": {
-        
         "includePattern": ".+\\.js(doc)?$",
         "excludePattern": "(^|\\/|\\\\)_"
     },
     "plugins": ["./jsdoc.plugins/index.js"],
     "templates": {
         "cleverLinks": false,
-        "monospaceLinks": false
+        "monospaceLinks": true,
+        "useLongnameInNav": false,
+        "showInheritedInNav": true
     },
     "opts": {
-        "template": "jsdoc.template/default",
+        "template": "jsdoc.template/minami",
         "encoding": "utf8",
         "destination": "out/",
         "recurse": true,
