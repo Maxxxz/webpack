@@ -30,8 +30,15 @@ export function add(num1, num2) {
  * @param {string} person.name - The name of the employee.
  * @param {string} person.host - The employee's host.
  * @param {string} orgin
- * @tryNow true
+ * @example
+ * var person = {name: 'max', host:'futian'}
+ * var orgin = 123
+ * var info = show(person, orgin) 
+ * console.log(info)
+ * @tryNow 
+ * show(person, orgin, ()=>{ 
+ * console.log(1)})
  */
-export function show(person, orgin) {
+export function show(person, orgin, cb) {
     return person.name + person.host + orgin;
 }

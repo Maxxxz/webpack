@@ -1,7 +1,7 @@
 <?js
 var data = obj;
 var self = this;
-console.log('method', data)
+console.log('method', data.tryNow)
 ?>
 <?js if (data.kind !== 'module' && !data.hideconstructor) { ?>
     <?js if (data.kind === 'class' && data.classdesc) { ?>
@@ -132,7 +132,7 @@ console.log('method', data)
 <?js } ?>
 
 
-<?js if (data.tags && tags.length && tags.filter((obj)=> obj.originalTitle === 'tryNow' && obj.value === 'true').length) { ?>
+<?js if (data.tryNow && tryNow.length) { ?>
     <h5>try Now:</h5>
     <?js= this.partial('try.tmpl', data) ?>
 <?js } ?>

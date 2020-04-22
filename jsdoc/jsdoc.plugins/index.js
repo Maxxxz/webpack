@@ -88,9 +88,8 @@ exports.handlers = {
     },
 };
 
-
-
-exports.defineTags = function(dictionary) {    // define tags here
+exports.defineTags = function (dictionary) {
+    // define tags here
     /*
         - defineTag(title, opts): 用于定义标签。第一个参数是标签的名称（例如，param 或 overview）。第二个参数是一个包含标签选项的对象。可以包含以下任一选项;每个选项的默认值都是false：
 
@@ -118,6 +117,17 @@ exports.defineTags = function(dictionary) {    // define tags here
     // 定义标签同义词
     // dictionary.defineTag('exception', { /* options for exception tag */ })
     // .synonym('throws');
+
+    var opts = {
+        canHaveName: true,
+        mustHaveValue: true,
+        onTagged: function (doclet, tag) {
+            // console.log('doclet, tag', doclet.tryNow, tag);
+            doclet.tryNow = doclet.tryNow || [];
+            doclet.tryNow.push(tag);
+        },
+    };
+    dictionary.defineTag('tryNow', opts);
 };
 
 // Node Visitors（节点访问者）
@@ -126,14 +136,14 @@ exports.defineTags = function(dictionary) {    // define tags here
 
 // 插件可以通过导出一个包含visitNode 函数的 astNodeVisitor 对象来定义节点访问者，像这样：
 exports.astNodeVisitor = {
-    visitNode: function(node, e, parser, currentSourceName) {       
-     // do all sorts of crazy things here
-     /**
+    visitNode: function (node, e, parser, currentSourceName) {
+        // do all sorts of crazy things here
+        /**
         - node：AST的节点。 AST节点是JavaScript对象,使用由Mozilla的解析器API定义的格式。您可以使用Esprima的解析器演示，查看为您的源代码创建的AST。
         - e：事件。如果该节点是一个解析器处理，事件对象将已经被填充，在symbolFound事件上用相同的东西描述。否则，这将是空对象在其上设置各种属性。
         - parser：本JSDoc解析器实例。
         - currentSourceName：该文件的名称被解析。
-    */ 
+    */
         // console.log('node, e, parser, currentSourceName', node)
-    }
+    },
 };
