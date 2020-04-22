@@ -35,9 +35,7 @@ export function add(num1, num2) {
  * var orgin = 123
  * var info = show(person, orgin) 
  * console.log(info)
- * @tryNow 
- * show(person, orgin, ()=>{ 
- * console.log(1)})
+ * @tryNow true
  */
 export function show(person, orgin, cb) {
     return person.name + person.host + orgin;

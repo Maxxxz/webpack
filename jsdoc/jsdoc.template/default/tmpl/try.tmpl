@@ -3,9 +3,7 @@
     var tid = 'tid' + uin
     var bid = 'bid' + uin
     var self = this;
-    // console.log('data.examples:', data.examples)
-    var examples = data.examples || [{}]
-    console.log('code', examples[0].code)
+    var examples = data.tryNowExample || data.examples || [{}]
 ?>
 <div>
     <?js examples.forEach(function(example){ ?>
@@ -19,7 +17,6 @@
             <script>
                 document.querySelector("#<?js= bid?>").addEventListener('click', async function(){
                     var val = document.querySelector("#<?js= tid?>").innerHTML.replace(/<br>|<br\/>|\n|\r/g, ';')
-                    console.log(val)
                     eval(val)
                 });
             </script>

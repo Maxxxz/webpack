@@ -1,7 +1,6 @@
 <?js
 var data = obj;
 var self = this;
-console.log('method', data.tryNow)
 ?>
 <?js if (data.kind !== 'module' && !data.hideconstructor) { ?>
     <?js if (data.kind === 'class' && data.classdesc) { ?>
@@ -132,7 +131,7 @@ console.log('method', data.tryNow)
 <?js } ?>
 
 
-<?js if (data.tryNow && tryNow.length) { ?>
+<?js if (data.tryNow.length) { ?>
     <h5>try Now:</h5>
     <?js= this.partial('try.tmpl', data) ?>
 <?js } ?>

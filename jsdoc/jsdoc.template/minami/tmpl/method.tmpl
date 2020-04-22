@@ -144,7 +144,7 @@ var self = this;
 <?js= this.partial('examples.tmpl', examples) ?>
 </div>
 <?js } ?>
-<?js if (data.tryNow && tryNow.length) { ?>
+<?js if (data.tryNow) { ?>
     <h5>try Now:</h5>
     <?js= this.partial('try.tmpl', data) ?>
 <?js } ?>

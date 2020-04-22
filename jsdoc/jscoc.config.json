@@ -12,7 +12,12 @@
         "cleverLinks": false,
         "monospaceLinks": true,
         "useLongnameInNav": false,
-        "showInheritedInNav": true
+        "showInheritedInNav": true,
+        "default": {
+            "staticFiles": {
+                "include": ["./dist/index.js"]
+            }
+        }
     },
     "opts": {
         "template": "jsdoc.template/minami",

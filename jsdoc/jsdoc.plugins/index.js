@@ -118,16 +118,23 @@ exports.defineTags = function (dictionary) {
     // dictionary.defineTag('exception', { /* options for exception tag */ })
     // .synonym('throws');
 
-    var opts = {
+    dictionary.defineTag('tryNow', {
+        canHaveName: true,
+        mustHaveValue: true,
+        onTagged: function (doclet, tag) {
+            doclet.tryNow = tag || '';
+        },
+    });
+
+    dictionary.defineTag('tryNowExample', {
         canHaveName: true,
         mustHaveValue: true,
         onTagged: function (doclet, tag) {
             // console.log('doclet, tag', doclet.tryNow, tag);
-            doclet.tryNow = doclet.tryNow || [];
-            doclet.tryNow.push(tag);
+            doclet.tryNowExample = doclet.tryNowExample || [];
+            doclet.tryNowExample.push(tag);
         },
-    };
-    dictionary.defineTag('tryNow', opts);
+    });
 };
 
 // Node Visitors（节点访问者）
