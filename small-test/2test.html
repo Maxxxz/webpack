@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="cache-control" content="no-store" />
+        <title>尾递归</title>
+        <style>
+            .d1 {
+                width: 200px;
+                height: 200px;
+                padding: 50px;
+                border: 20px solid red;
+            }
+        </style>
+    </head>
+    <body class="holy-grail"></body>
+    <script>
+        // 'use strict';
+        function sum() {
+            const args = arguments;
+            let res = 0;
+            for (let i = 0; i < args.length; i++) {
+                res += args[i];
+            }
+
+            function sum2() {
+                const args2 = arguments;
+                let res2 = 0;
+                for (let i = 0; i < args2.length; i++) {
+                    res2 += args2[i];
+                }
+                res += res2;
+                return sum2;
+            }
+            sum2.toString = function() {
+                return res;
+            };
+            return sum2;
+        }
+
+        function sort(str = '') {
+            return str
+                .split('')
+                .sort() // sortby	可选。规定排序顺序。必须是函数。 默认从小到大
+                .join();
+        }
+
+        function isAna(a, b) {
+            return sort(a) === sort(b);
+        }
+
+        const uniqueArray = arr => {
+            // TODO
+            // new Set
+            let arr2 = arr.filter((val, index) => {
+                return arr.indexOf(val) === index;
+            });
+            return arr2;
+        };
+
+        const a = ['1', '2', '3', 1, '2', undefined, undefined, null, null, 1, 'a', 'b', 'b'];
+        console.log(uniqueArray(a)); // ["1", "2", "3", 1, undefined, null, "a", "b"]
+    </script>
+</html>
