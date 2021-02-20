@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="cache-control" content="no-store" />
+        <title>尾递归</title>
+        <style>
+            .d1 {
+                width: 200px;
+                height: 200px;
+                padding: 50px;
+                border: 20px solid red;
+            }
+        </style>
+    </head>
+    <body class="holy-grail"></body>
+    <script>
+        // a0 + a1*x^1 + a2* x^2+ ... + an*x^n
+        var ARR = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+        var X = 10;
+        var NUM = 1000000;
+        function f1(arr, x) {
+            let p = arr[0];
+            for (let i = 1; i < arr.length; i++) {
+                p = p + arr[i] * Math.pow(x, i);
+            }
+            //console.log('f1', p);
+            return p;
+        }
+
+        function f2(arr, x) {
+            let n = arr.length;
+            let p = arr[n - 1];
+            for (let i = n - 1; i > 0; i--) {
+                p = arr[i - 1] + p * x;
+            }
+            //console.log('f2', p);
+            return p;
+        }
+
+        function time(fn, num) {
+            console.time();
+            for (let i = 0; i < num; i++) {
+                fn(ARR, X);
+            }
+            console.timeEnd();
+        }
+        time(f1, NUM);
+        time(f2, NUM);
+        
+        
+    </script>
+</html>

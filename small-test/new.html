@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="cache-control" content="no-store" />
+        <style>
+            .d1 {
+                width: 200px;
+                height: 200px;
+                padding: 50px;
+                border: 20px solid red;
+            }
+        </style>
+    </head>
+    <body class="holy-grail"></body>
+    <script>
+        function Person(name, age){
+            this.name = name
+            this.age = age;
+        }
+
+        Person.prototype.getName = function(){
+            return this.name
+        }
+
+        function newFunc(constructor){
+            var obj = {};
+            obj.__proto__ = constructor.prototype;
+            var val = constructor.apply(obj, Array.prototype.slice.call(arguments, 1))
+            console.log('val', val)
+            return obj
+        }
+
+        function newFuncES6(constructor, ...args){
+            let obj = Object.create(constructor.prototype)
+            constructor.call(obj, ...args)
+            return obj;
+        }
+
+        var p1 = new Person('max', 12)
+        var p2 = newFunc(Person, 'MAXI', 13)
+        var p3 = newFuncES6(Person, 'MAXI', 13)
+        
+    </script>
+</html>

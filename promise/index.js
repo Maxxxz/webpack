@@ -4,6 +4,11 @@
 // 简单实现Promise
 // https://imweb.io/topic/5bbc264b6477d81e668cc930
 
+// 30分钟，带你实现一个符合规范的 Promise
+// https://zhuanlan.zhihu.com/p/139496058
+
+// 一步一步实现自己的Promise
+// https://zhuanlan.zhihu.com/p/137813682
 function custom(fn) {
     this.fn = fn;
     this.state = 'pending';
