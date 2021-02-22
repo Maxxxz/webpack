@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var p = new Proxy({}, {
+            get(target, property, receiver){
+                console.log('get', property)
+                return target[property]
+            },
+            set(target, property, value, receiver){
+                target[property] = value;
+                console.log('set', property, value)
+                return false
+            }
+        })
+
+        var pp = new Proxy({}, {
+            get(target, property, receiver){
+                console.log('get pp', property)
+                return target[property]
+            },
+            set(target, property, value, receiver){
+                target[property] = value;
+                console.log('set pp', property, value)
+                return false
+            }
+        })
+        p.a = 4;
+        p.b = pp;
+        p.b.a = 3
+    </script>
+</body>
+</html>

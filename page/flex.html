@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flex</title>
+    <style>
+        .flex-box {
+            display: flex;
+        }
+        .flex-box .left, .flex-box .right {
+            flex: 0 0 100px;
+            width: 100px
+        }
+        .flex-box .content {
+            flex: 1
+        }
+        .float-box {
+            overflow: auto;
+        }
+        .float-box .left {
+           float: left; 
+           width: 100px;
+        }
+        .float-box .right {
+           float: right; 
+           width: 100px;
+        }
+        .float-box .content {
+            /* margin: 0 100px; */
+            width: calc( 100% - 200px );
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="flex-box">
+       <div class="left">asda</div>
+       <div class="content">asdasasdas</div>
+       <div class="right">sds</div> 
+    </div>
+    <div class="float-box">
+        <div class="left">asd</div>
+        <div class="content">asdasasdas</div>
+        <div class="right">sds</div> 
+    </div>
+</body>
+</html>
