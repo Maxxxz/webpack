@@ -1,7 +1,17 @@
+<!--
+ * @Author: maxizhang
+ * @Date: 2020-05-05 14:41:07
+ * @FilePath: /practice/vue/hello-world/src/App.vue
+ * @Description: 
+-->
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
+    <div @click="handleClick">dinwo</div>
+    <div v-for="(obj, index) in t" key="index">
+      {{obj.a}}
+    </div>
   </div>
 </template>
 
@@ -10,10 +20,18 @@ import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  // components: {
+  //   HelloWorld
+  // },
+  data: function() {
+return { a: 1, t: [] };
+},
+  mounted() {
+    this.t = [
+      {a:1},
+      {a:2}
+    ]
   },
-  data: { a: 1 },
   computed: {
     // 仅读取
     aDouble: function () {
@@ -28,7 +46,15 @@ export default {
         this.a = v - 1
       }
     }
-  }
+  },
+  methods: {
+    handleClick(){
+      this.t[0].a +=1
+      this.t[1] = {a:3} 
+      this.t[2] = {a:3} 
+      console.log('1111')
+    }
+  },
 }
 </script>
 
