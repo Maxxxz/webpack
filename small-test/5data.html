@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="cache-control" content="no-store" />
+        <title>尾递归</title>
+        <style>
+            .d1 {
+                width: 200px;
+                height: 200px;
+                padding: 50px;
+                border: 20px solid red;
+            }
+        </style>
+    </head>
+    <body class="holy-grail"></body>
+    <script src="./src/feedData2.js"></script>
+    <script>
+        console.log('data2', data)
+        const formatData = data.map(({video, videoSpecUrls, images})=>({video, videoSpecUrls, images}))
+        console.log('formatData', formatData)
+    </script>
+</html>

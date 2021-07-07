@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'> </div>
+</body>
+<script>
+    //V8 
+    let app = document.getElementById('app');
+    const listCreateCreator = () => {
+        let container = document.createElement('div');
+        container.setAttribute('id', 'inApp');
+        let li = ''
+        let listElement = new Array(1000).fill('1').reduce((_, curr, index) => {
+            _ += `<li>${index}</li>`
+            return _
+        }, li);
+        container.innerHTML = listElement;
+        return container;
+    }
+
+    app.append(listCreateCreator());
+
+    setInterval(() => {
+        const inApp = document.getElementById('inApp');
+        inApp.remove();
+        app.append(listCreateCreator());
+    }, 3000);
+
+
+
+
+    // const element = document.getElementById('some-element-you-want-to-animate');
+    // let start;
+
+    // function step(timestamp) {
+    //     if (start === undefined)
+    //         start = timestamp;
+    //     const elapsed = timestamp - start;
+
+    //     //这里使用`Math.min()`确保元素刚好停在200px的位置。
+    //     element.style.transform = 'translateX(' + Math.min(0.1 * elapsed, 200) + 'px)';
+
+    //     if (elapsed < 2000) { // 在两秒后停止动画
+    //         window.requestAnimationFrame(step);
+    //     }
+    // }
+
+    // window.requestAnimationFrame(step);
+</script>
+
+</html>

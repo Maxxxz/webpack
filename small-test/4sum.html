@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="cache-control" content="no-store" />
+        <title>尾递归</title>
+        <style>
+            .d1 {
+                width: 200px;
+                height: 200px;
+                padding: 50px;
+                border: 20px solid red;
+            }
+        </style>
+    </head>
+    <body class="holy-grail"></body>
+    <script>
+        function sum(...args) {
+            sum.res = 0;
+
+            return sum2(...args);
+        }
+
+        function sum2(...argsIn) {
+            if (argsIn?.length) {
+                sum.res += argsIn.reduce((a, b) => a + b);
+            }
+            return sum2;
+        }
+        // 这个放到sum里，每次调用都会重新复制一次，因此会 sum(2, 3) != sum(2)(3)
+        sum2.toString = function() {
+            return sum.res;
+        };
+
+        console.log(sum(2)(3)()); //f 5
+        console.log(sum(2, 3)()); // f5
+        console.log(sum(2, 3) === sum(2)(3)); // true
+        console.log(sum(2, 3) == 5); //true
+        console.log(sum(2, 3) === 5); //false
+    </script>
+</html>
