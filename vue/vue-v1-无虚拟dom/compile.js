@@ -71,6 +71,7 @@ class Compile {
             }
         });
     }
+    
     compileText(node) {
         const exp = RegExp.$1;
         this.update(node, exp, 'text');
@@ -106,6 +107,7 @@ class Compile {
     }
 
     model(node, exp) {
+        // 添加watcher和依赖收集
         this.update(node, exp, 'model');
         node.addEventListener('input', (e) => {
             console.log('input input', e.target.value);
@@ -114,6 +116,7 @@ class Compile {
     }
 
     modelUpdator(node, value) {
+        // 更新model绑定对象的值。目前只支持input，所以用value就可以了。
         node.value = value;
     }
 

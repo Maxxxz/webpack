@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id='app'>1212121</div>
+    <div>1212121</div>
+</body>
+<script>
+    function log() {
+        console.log("打印信息")
+    }
+    log();
+    function make() {
+        let app = document.getElementById('app')
+        app.innerHTML = '修改'
+        // console.log('1212');
+        // document.title ='121212'
+    }
+    function make1() {
+        let app = document.getElementById('app')
+        app.innerHTML = '修改1'
+        // console.log('1212');
+        // document.title ='121212'
+    }
+    setTimeout(make1);
+    new Promise((res) => {
+        make()
+        res()
+    }).then(make1).then(make);
+</script>
+
+</html>
